@@ -148,19 +148,23 @@ export default function Home() {
 
   const tone = useCallback((frequency = 180, duration = 0.12, wave: OscillatorType = 'square') => {
     if (!soundEnabled || typeof window === 'undefined') return;
-    const AudioCtor = window.AudioContext ?? (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    if (!AudioCtor) return;
-    const context = audioContext.current ?? new AudioCtor();
-    audioContext.current = context;
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = wave;
-    oscillator.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.09, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + duration);
+    try {
+      const AudioCtor = window.AudioContext ?? (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtor) return;
+      const context = audioContext.current ?? new AudioCtor();
+      audioContext.current = context;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = wave;
+      oscillator.frequency.value = frequency;
+      gain.gain.setValueAtTime(0.09, context.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
+      oscillator.connect(gain).connect(context.destination);
+      oscillator.start();
+      oscillator.stop(context.currentTime + duration);
+    } catch {
+      // Sound is optional and must never block an answer transition.
+    }
   }, [soundEnabled]);
 
   useEffect(() => {
@@ -287,8 +291,8 @@ export default function Home() {
       setSkips((value) => value + 1);
       track('skip_collected');
     }
-    tone(660, 0.12, 'square');
     window.setTimeout(advance, 850);
+    tone(660, 0.12, 'square');
   };
 
   const answer = (index: number) => {
@@ -321,6 +325,15 @@ export default function Home() {
       loseLife(question.type === 'live' ? 'LIVE DATA' : 'WRONG ANSWER', question.feedback[index]);
     }
   };
+
+  useEffect(() => {
+    if (phase !== 'question' || !locked) return;
+    const recovery = window.setTimeout(() => {
+      setLocked(false);
+      if (!feedback) setFeedback('THE BUTTONS HAVE BEEN RELEASED BY COURT ORDER. TRY AGAIN.');
+    }, 1800);
+    return () => window.clearTimeout(recovery);
+  }, [feedback, locked, phase]);
 
   const hotspotHit = (event: React.PointerEvent) => {
     event.stopPropagation();
@@ -582,7 +595,7 @@ export default function Home() {
         ) : (
           <div className="answer-grid">
             {choices?.map((choice, index) => (
-              <button key={choice} type="button" disabled={locked} onClick={() => answer(index)}>
+              <button key={choice} type="button" aria-disabled={locked} onClick={() => answer(index)}>
                 <span>{String.fromCharCode(65 + index)}</span>
                 {question.type === 'live' && index === 1 ? String(liveMetric) : choice}
               </button>

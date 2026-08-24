@@ -306,7 +306,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 }
 
 .answer-grid button:not(:disabled):hover { background: var(--gold); transform: rotate(-.5deg) scale(1.01); }
-.answer-grid button:disabled { cursor: wait; opacity: .78; }
+.answer-grid button[aria-disabled="true"] { cursor: wait; opacity: .78; }
 .answer-grid button span {
   display: inline-grid;
   place-items: center;
@@ -579,4 +579,3 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   .bing-target { width: 210px; }
   .hotspot-stage { height: 230px; }
 }
-
