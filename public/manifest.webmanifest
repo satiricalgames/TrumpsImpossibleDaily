@@ -1,0 +1,16 @@
+{
+  "name": "Trump's Impossible Game",
+  "short_name": "Impossible Game",
+  "description": "A deliberately rigged retro political parody game.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#061a45",
+  "theme_color": "#061a45",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
+
