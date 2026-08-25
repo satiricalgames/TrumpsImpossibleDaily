@@ -175,6 +175,26 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   font-size: 11px;
 }
 
+.test-panel {
+  margin: 18px auto 0;
+  padding: 12px;
+  border: 3px dashed var(--ink);
+  background: rgba(255,255,255,.55);
+  font-size: 11px;
+}
+
+.test-panel label { display: block; margin-bottom: 8px; }
+.test-panel div { display: flex; justify-content: center; gap: 8px; }
+.test-panel select,
+.test-panel button {
+  border: 2px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  padding: 7px 9px;
+  font: 700 12px Arial, sans-serif;
+}
+.test-panel button { background: var(--gold); cursor: pointer; }
+
 .fine-print {
   font-family: Arial, sans-serif;
   font-size: 11px;
@@ -393,6 +413,15 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   font-size: 7px;
 }
 
+.rigged-hotspot.test-visible {
+  color: white;
+  background: rgba(229,29,50,.92);
+  border: 3px solid var(--gold);
+  font-size: 9px;
+  overflow: visible;
+  z-index: 2;
+}
+
 .status-ticker {
   justify-content: center;
   font-size: 11px;
@@ -569,6 +598,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   .result-card dl { grid-template-columns: 1fr; }
   .result-shell { overflow: auto; }
   .minigame-actions { flex-direction: column; }
+  .test-panel div { flex-direction: column; }
 }
 
 @media (max-height: 650px) and (orientation: landscape) {

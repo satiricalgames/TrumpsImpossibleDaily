@@ -1,11 +1,13 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import questionsData from '@/content/questions.json';
 
 type Phase = 'landing' | 'question' | 'bing' | 'golf' | 'ad' | 'gameover';
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
 
 type Question = {
+  id: string;
   number: number;
   type: QuestionType;
   kicker: string;
@@ -13,86 +15,17 @@ type Question = {
   choices?: string[];
   rewrittenChoices?: string[];
   correctIndex?: number;
+  grantSkip?: boolean;
+  trapIndex?: number;
+  backtrackBy?: number;
+  timerSeconds?: number;
+  golfTargetPower?: number;
+  hotspot?: { xPct: number; yPct: number; widthPct: number; heightPct: number };
+  missRules?: { clicksBeforeLifeLoss: number; maxLivesLost: number };
   feedback: string[];
 };
 
-const QUESTIONS: Question[] = [
-  {
-    number: 1,
-    type: 'standard',
-    kicker: 'EXECUTIVE INTELLIGENCE TEST',
-    prompt: 'What is the best kind of bowl?',
-    choices: ['Mixing bowl', 'Super Bowl', 'A taco bowl from Trump Tower Grill', 'Singing bowl'],
-    correctIndex: 2,
-    feedback: ['TOO PRACTICAL. VERY SUSPICIOUS.', 'SPORTS ARE TEMPORARILY CANCELLED.', 'TREMENDOUS BOWL SELECTION.', 'THIS IS NOT A WELLNESS RETREAT.'],
-  },
-  {
-    number: 2,
-    type: 'standard',
-    kicker: 'LATE-NIGHT POLICY OFFICE',
-    prompt: 'What follows a completely unprompted midnight post in all caps?',
-    choices: ['Silence', 'A press briefing', 'COVFEFE', 'Responsible reflection'],
-    correctIndex: 2,
-    feedback: ['SILENCE HAS BEEN FIRED.', 'THE BRIEFING WAS CANCELLED BY THE BRIEFING.', 'CORRECT. YOU FOUND A GREEN SKIP!', 'RESPONSIBILITY WAS NOT ON THE BALLOT.'],
-  },
-  {
-    number: 3,
-    type: 'injunction',
-    kicker: 'THE COURT MAY OBJECT',
-    prompt: 'Which order should be signed immediately?',
-    choices: ['The sensible one', 'The loud one', 'The tiny-print one', 'Sign all of them'],
-    rewrittenChoices: ['Appeal to snack court', 'Declare the gavel unconstitutional', 'Ask the options to recuse themselves', 'Sign absolutely nothing'],
-    correctIndex: 1,
-    feedback: ['NATIONWIDE INJUNCTION!', 'THE GAVEL HAS BEEN OVERRULED BY A LOUDER GAVEL.', 'THE FINE PRINT JUST GOT FINER.', 'FOUR SIGNATURES. ZERO PROGRESS.'],
-  },
-  {
-    number: 4,
-    type: 'hotspot',
-    kicker: 'THE POLL IS DEFINITELY NORMAL',
-    prompt: 'Find the one tiny thing that is not rigged.',
-    feedback: ['MISS. THE PIXELS ARE UNDER INVESTIGATION.'],
-  },
-  {
-    number: 5,
-    type: 'live',
-    kicker: 'LIVE EXECUTIVE METRICS',
-    prompt: 'How many active injunctions are on the totally real scoreboard?',
-    choices: ['24', '27', '31', 'They have lost count'],
-    correctIndex: 1,
-    feedback: ['STALE DATA. SAD!', 'CORRECT AT THE TIME OF BROADCAST.', 'THAT NUMBER WAS TRUE NEXT WEEK.', 'COUNTING HAS BEEN ENJOINED.'],
-  },
-  {
-    number: 6,
-    type: 'taco',
-    kicker: 'CULINARY FOREIGN POLICY',
-    prompt: 'Choose the safest lunch.',
-    choices: ['A sealed briefing sandwich', 'The suspicious taco', 'A bowl with no taco in it', 'Executive pudding'],
-    correctIndex: 2,
-    feedback: ['THE SANDWICH LEAKED.', 'TACO TRAP! FIVE QUESTIONS BACK!', 'SAFE, BORING, AND SOMEHOW CORRECT.', 'THE PUDDING HAS CLAIMED PRIVILEGE.'],
-  },
-  {
-    number: 7,
-    type: 'bing',
-    kicker: 'SIGNATURE VIRAL MINI-GAME',
-    prompt: 'MAKE HIM SAY BING!',
-    feedback: [],
-  },
-  {
-    number: 8,
-    type: 'golf',
-    kicker: 'PRESIDENTIAL FITNESS TEST',
-    prompt: 'Hit the fairway. (The trees are absolutely not the real target.)',
-    feedback: [],
-  },
-  {
-    number: 47,
-    type: 'final',
-    kicker: 'THE IMPOSSIBLE FINALE',
-    prompt: 'How do you want to handle the transition of power?',
-    choices: ['Concede gracefully and walk away', 'Demand a recount in all 50 states', 'Post a 14-part thread', 'Declare total victory anyway'],
-    feedback: ['FAKE NEWS!', 'STOP THE COUNT! WAIT — KEEP COUNTING!', 'PERMANENT INJUNCTION!', 'TOTAL VICTORY!*'],
-  },
-];
+const QUESTIONS = questionsData as Question[];
 
 const BING_LABELS = [
   [0, 39, 'LOW ENERGY'],
@@ -120,7 +53,7 @@ export default function Home() {
   const [locked, setLocked] = useState(false);
   const [rewritten, setRewritten] = useState(false);
   const [hotspotMisses, setHotspotMisses] = useState(0);
-  const [hotspotLifeLost, setHotspotLifeLost] = useState(false);
+  const [hotspotLivesLost, setHotspotLivesLost] = useState(0);
   const [timer, setTimer] = useState(15);
   const [bingScore, setBingScore] = useState(0);
   const [bingSeconds, setBingSeconds] = useState(20);
@@ -134,6 +67,8 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [hasSave, setHasSave] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
+  const [testQuestionIndex, setTestQuestionIndex] = useState(3);
+  const [testMode, setTestMode] = useState(false);
   const installPrompt = useRef<Event & { prompt: () => Promise<void> } | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
   const bingScoreRef = useRef(0);
@@ -203,6 +138,7 @@ export default function Home() {
   }, [phase, questionIndex, lives, skips, furthest, bingScore]);
 
   const begin = () => {
+    setTestMode(false);
     setPhase('question');
     setQuestionIndex(0);
     setLives(3);
@@ -224,13 +160,13 @@ export default function Home() {
     setLocked(false);
     setRewritten(false);
     setHotspotMisses(0);
-    setHotspotLifeLost(false);
-    setTimer(15);
+    setHotspotLivesLost(0);
+    setTimer(next.timerSeconds ?? 15);
     setGolfPower(0);
     if (next.type === 'bing') {
       setBingScore(0);
       bingScoreRef.current = 0;
-      setBingSeconds(20);
+      setBingSeconds(next.timerSeconds ?? 20);
       setPhase('bing');
       track('minigame_start', { type: 'bing' });
     } else if (next.type === 'golf') {
@@ -241,6 +177,16 @@ export default function Home() {
       track('question_view', { question: next.number, type: next.type });
     }
   }, [track]);
+
+  const startTestQuestion = () => {
+    setTestMode(true);
+    setLives(3);
+    setSkips(2);
+    setFurthest(QUESTIONS[testQuestionIndex].number);
+    setBingScore(0);
+    setFeedback('');
+    enterQuestion(testQuestionIndex);
+  };
 
   const gameOver = useCallback((reason: string) => {
     setFailureType(reason);
@@ -312,15 +258,15 @@ export default function Home() {
       window.setTimeout(() => setFeedback(''), 1100);
       return;
     }
-    if (question.type === 'taco' && index === 1) {
+    if (question.type === 'taco' && index === (question.trapIndex ?? 1)) {
       setFeedback(question.feedback[index]);
       setFailureType('TACO TRAP');
       tone(220, 0.45, 'sawtooth');
-      window.setTimeout(() => enterQuestion(Math.max(0, questionIndex - 5)), 1100);
+      window.setTimeout(() => enterQuestion(Math.max(0, questionIndex - (question.backtrackBy ?? 5))), 1100);
       return;
     }
     if (index === question.correctIndex) {
-      correct(question.feedback[index], question.number === 2);
+      correct(question.feedback[index], question.grantSkip);
     } else {
       loseLife(question.type === 'live' ? 'LIVE DATA' : 'WRONG ANSWER', question.feedback[index]);
     }
@@ -346,9 +292,11 @@ export default function Home() {
     setHotspotMisses(next);
     setFeedback(`MISS ${next}/3 — THE PIXELS ARE UNDER INVESTIGATION.`);
     tone(130, 0.08, 'square');
-    if (next >= 3 && !hotspotLifeLost) {
+    const clicksBeforeLoss = question.missRules?.clicksBeforeLifeLoss ?? 3;
+    const maxLivesLost = question.missRules?.maxLivesLost ?? 1;
+    if (next >= clicksBeforeLoss && hotspotLivesLost < maxLivesLost) {
       setHotspotMisses(0);
-      setHotspotLifeLost(true);
+      setHotspotLivesLost((value) => value + 1);
       loseLife('RANDOM CLICKING', 'THREE MISSES. ONE MAGA HAT CONFISCATED.');
     }
   };
@@ -360,7 +308,7 @@ export default function Home() {
         if (value <= 1) {
           window.clearInterval(id);
           loseLife('TIME EXPIRED', 'THE POLL CLOSED WHILE YOU WERE STILL LOOKING.');
-          return 15;
+          return question.timerSeconds ?? 15;
         }
         return value - 1;
       });
@@ -398,7 +346,7 @@ export default function Home() {
 
   const launchGolf = () => {
     track('minigame_complete', { type: 'golf', power: golfPower });
-    if (golfPower >= 70) {
+    if (golfPower >= (question.golfTargetPower ?? 70)) {
       setFeedback('PERFECT! STRAIGHT INTO THE TREES. ADVANCE IMMEDIATELY.');
       tone(620, 0.3, 'triangle');
       window.setTimeout(advance, 1000);
@@ -476,6 +424,15 @@ export default function Home() {
             <button type="button" aria-pressed={!soundEnabled} onClick={() => setSoundEnabled((value) => !value)}>{soundEnabled ? '🔊 SOUND ON' : '🔇 SOUND OFF'}</button>
             <button type="button" aria-pressed={reducedMotion} onClick={() => setReducedMotion((value) => !value)}>{reducedMotion ? '✓ REDUCED MOTION' : 'REDUCE MOTION'}</button>
           </div>
+          <div className="test-panel">
+            <label htmlFor="test-question">TEST MODE — JUMP DIRECTLY TO</label>
+            <div>
+              <select id="test-question" value={testQuestionIndex} onChange={(event) => setTestQuestionIndex(Number(event.target.value))}>
+                {QUESTIONS.map((item, index) => <option key={item.id} value={index}>Q{item.number}: {item.type}</option>)}
+              </select>
+              <button type="button" onClick={startTestQuestion}>TEST QUESTION</button>
+            </div>
+          </div>
           <p className="fine-print">Independent parody/satire. Not affiliated with any person, campaign, broadcaster or game studio.<br />Contains mild flashing and shaking effects; use Reduced Motion to disable them.</p>
         </section>
         <div className="ticker" aria-hidden="true"><span>BREAKING: MANY PEOPLE ARE CALLING THIS THE MOST IMPOSSIBLE GAME EVER MADE</span></div>
@@ -509,7 +466,7 @@ export default function Home() {
 
   const hud = (
     <header className="game-hud">
-      <span className="hud-label">QUESTION {question.number} / 47</span>
+      <span className="hud-label">QUESTION {question.number} / 47 {testMode && '• TEST MODE'}</span>
       <span aria-label={`${lives} lives remaining`} className="lives">
         {[0, 1, 2].map((index) => <Hat key={index} lost={index >= lives} />)}
       </span>
@@ -589,8 +546,20 @@ export default function Home() {
           <div className="hotspot-stage" onPointerDown={hotspotMiss}>
             <div className="poll-bar"><i style={{ width: '73%' }} /><span>73% ABSOLUTELY NOT RIGGED</span></div>
             <div className="poll-bar"><i style={{ width: '91%' }} /><span>91% OTHER NUMBER</span></div>
-            <button className="rigged-hotspot" type="button" onPointerDown={hotspotHit}>RIGGED</button>
-            <p>Tap the screen. Three misses cost one hat.</p>
+            <button
+              className={`rigged-hotspot ${testMode ? 'test-visible' : ''}`}
+              style={{
+                left: `${question.hotspot?.xPct ?? 83}%`,
+                top: `${question.hotspot?.yPct ?? 14}%`,
+                width: `${question.hotspot?.widthPct ?? 8}%`,
+                height: `${question.hotspot?.heightPct ?? 10}%`,
+              }}
+              type="button"
+              onPointerDown={hotspotHit}
+            >
+              {testMode ? 'RIGGED TARGET' : 'RIGGED'}
+            </button>
+            <p>Tap the screen. {question.missRules?.clicksBeforeLifeLoss ?? 3} misses cost one hat.</p>
           </div>
         ) : (
           <div className="answer-grid">

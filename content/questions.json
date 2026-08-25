@@ -1,0 +1,104 @@
+[
+  {
+    "id": "bowl",
+    "number": 1,
+    "type": "standard",
+    "kicker": "EXECUTIVE INTELLIGENCE TEST",
+    "prompt": "What is the best kind of bowl?",
+    "choices": ["Mixing bowl", "Super Bowl", "A taco bowl from Trump Tower Grill", "Singing bowl"],
+    "correctIndex": 2,
+    "feedback": ["TOO PRACTICAL. VERY SUSPICIOUS.", "SPORTS ARE TEMPORARILY CANCELLED.", "TREMENDOUS BOWL SELECTION.", "THIS IS NOT A WELLNESS RETREAT."]
+  },
+  {
+    "id": "midnight-post",
+    "number": 2,
+    "type": "standard",
+    "kicker": "LATE-NIGHT POLICY OFFICE",
+    "prompt": "What follows a completely unprompted midnight post in all caps?",
+    "choices": ["Silence", "A press briefing", "COVFEFE", "Responsible reflection"],
+    "correctIndex": 2,
+    "grantSkip": true,
+    "feedback": ["SILENCE HAS BEEN FIRED.", "THE BRIEFING WAS CANCELLED BY THE BRIEFING.", "CORRECT. YOU FOUND A GREEN SKIP!", "RESPONSIBILITY WAS NOT ON THE BALLOT."]
+  },
+  {
+    "id": "injunction",
+    "number": 3,
+    "type": "injunction",
+    "kicker": "THE COURT MAY OBJECT",
+    "prompt": "Which order should be signed immediately?",
+    "choices": ["The sensible one", "The loud one", "The tiny-print one", "Sign all of them"],
+    "rewrittenChoices": ["Appeal to snack court", "Declare the gavel unconstitutional", "Ask the options to recuse themselves", "Sign absolutely nothing"],
+    "correctIndex": 1,
+    "feedback": ["NATIONWIDE INJUNCTION!", "THE GAVEL HAS BEEN OVERRULED BY A LOUDER GAVEL.", "THE FINE PRINT JUST GOT FINER.", "FOUR SIGNATURES. ZERO PROGRESS."]
+  },
+  {
+    "id": "pixel-hotspot",
+    "number": 4,
+    "type": "hotspot",
+    "kicker": "THE POLL IS DEFINITELY NORMAL",
+    "prompt": "Find the one tiny thing that is not rigged.",
+    "timerSeconds": 15,
+    "hotspot": {
+      "xPct": 83,
+      "yPct": 14,
+      "widthPct": 8,
+      "heightPct": 10
+    },
+    "missRules": {
+      "clicksBeforeLifeLoss": 3,
+      "maxLivesLost": 1
+    },
+    "feedback": ["MISS. THE PIXELS ARE UNDER INVESTIGATION."]
+  },
+  {
+    "id": "live-injunctions",
+    "number": 5,
+    "type": "live",
+    "kicker": "LIVE EXECUTIVE METRICS",
+    "prompt": "How many active injunctions are on the totally real scoreboard?",
+    "choices": ["24", "27", "31", "They have lost count"],
+    "correctIndex": 1,
+    "feedback": ["STALE DATA. SAD!", "CORRECT AT THE TIME OF BROADCAST.", "THAT NUMBER WAS TRUE NEXT WEEK.", "COUNTING HAS BEEN ENJOINED."]
+  },
+  {
+    "id": "taco-trap",
+    "number": 6,
+    "type": "taco",
+    "kicker": "CULINARY FOREIGN POLICY",
+    "prompt": "Choose the safest lunch.",
+    "choices": ["A sealed briefing sandwich", "The suspicious taco", "A bowl with no taco in it", "Executive pudding"],
+    "correctIndex": 2,
+    "trapIndex": 1,
+    "backtrackBy": 5,
+    "feedback": ["THE SANDWICH LEAKED.", "TACO TRAP! FIVE QUESTIONS BACK!", "SAFE, BORING, AND SOMEHOW CORRECT.", "THE PUDDING HAS CLAIMED PRIVILEGE."]
+  },
+  {
+    "id": "bing-o-meter",
+    "number": 7,
+    "type": "bing",
+    "kicker": "SIGNATURE VIRAL MINI-GAME",
+    "prompt": "MAKE HIM SAY BING!",
+    "timerSeconds": 20,
+    "feedback": []
+  },
+  {
+    "id": "golf",
+    "number": 8,
+    "type": "golf",
+    "kicker": "PRESIDENTIAL FITNESS TEST",
+    "prompt": "Hit the fairway. (The trees are absolutely not the real target.)",
+    "golfTargetPower": 70,
+    "feedback": []
+  },
+  {
+    "id": "finale",
+    "number": 47,
+    "type": "final",
+    "kicker": "THE IMPOSSIBLE FINALE",
+    "prompt": "How do you want to handle the transition of power?",
+    "choices": ["Concede gracefully and walk away", "Demand a recount in all 50 states", "Post a 14-part thread", "Declare total victory anyway"],
+    "correctIndex": -1,
+    "feedback": ["FAKE NEWS!", "STOP THE COUNT! WAIT — KEEP COUNTING!", "PERMANENT INJUNCTION!", "TOTAL VICTORY!*"]
+  }
+]
+
