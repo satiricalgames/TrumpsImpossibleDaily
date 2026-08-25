@@ -253,7 +253,7 @@ export default function Home() {
       setSkips((value) => value + 1);
       track('skip_collected');
     }
-    window.setTimeout(advance, 1600);
+    window.setTimeout(advance, 3200);
     tone(660, 0.12, 'square');
   };
 
@@ -365,7 +365,7 @@ export default function Home() {
     if (golfPower >= (question.golfTargetPower ?? 70)) {
       setFeedback('PERFECT! STRAIGHT INTO THE TREES. ADVANCE IMMEDIATELY.');
       tone(620, 0.3, 'triangle');
-      window.setTimeout(advance, 1600);
+      window.setTimeout(advance, 3200);
     } else {
       loseLife('THE FAIRWAY', 'DISASTER! YOU HIT THE FAIRWAY LIKE THE INSTRUCTIONS SAID.');
       setGolfPower(0);
@@ -510,8 +510,6 @@ export default function Home() {
         {hud}
         <section className="commercial">
           <p>A WORD FROM OUR CORPORATE SPONSORS</p>
-          <h1>EXECUTIVE-PREMIUM<br />NOTHING BURGERS</h1>
-          <div className="burger" aria-hidden="true">🍔</div>
           <p>THIS MESSAGE DEFINITELY HAD NO EFFECT ON POLICY.</p>
           <div className="adsense-placeholder" aria-label="Advertisement placeholder">
             <span>ADVERTISEMENT</span>

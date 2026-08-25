@@ -449,7 +449,6 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 }
 .commercial > p { color: white; letter-spacing: .1em; }
 .commercial .secondary-button { margin-top: 8px; font-size: 18px; }
-.burger { font-size: 80px; filter: drop-shadow(7px 8px 0 rgba(0,0,0,.25)); }
 
 .adsense-placeholder {
   width: min(728px, 100%);
