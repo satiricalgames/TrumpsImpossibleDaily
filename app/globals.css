@@ -316,6 +316,10 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .answer-grid button {
   min-height: 76px;
   text-align: left;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
   border: 4px solid var(--ink);
   color: var(--ink);
   background: white;
@@ -327,14 +331,18 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 
 .answer-grid button:not(:disabled):hover { background: var(--gold); transform: rotate(-.5deg) scale(1.01); }
 .answer-grid button[aria-disabled="true"] { cursor: wait; opacity: .78; }
-.answer-grid button span {
+.answer-grid button .answer-letter {
   display: inline-grid;
   place-items: center;
   width: 34px;
   height: 34px;
-  margin-right: 10px;
   background: var(--red);
   color: white;
+}
+
+.answer-grid button .answer-copy {
+  min-width: 0;
+  line-height: 1.12;
 }
 
 .feedback {
@@ -430,13 +438,38 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 }
 
 .commercial {
-  background: repeating-linear-gradient(-45deg, #ffda2d 0 16px, #ffd01a 16px 32px);
+  isolation: isolate;
+  overflow: hidden;
+  color: white;
+  background:
+    linear-gradient(rgba(4, 15, 42, .58), rgba(4, 15, 42, .82)),
+    url('/white-house.jpg') center 58% / cover no-repeat;
   box-shadow: 12px 14px 0 #25b561;
+  text-shadow: 2px 2px 0 #000;
 }
-.commercial > p { color: var(--red); letter-spacing: .1em; }
-.commercial small { display: block; margin: 20px; font-family: Arial, sans-serif; }
+.commercial > p { color: white; letter-spacing: .1em; }
 .commercial .secondary-button { margin-top: 8px; font-size: 18px; }
 .burger { font-size: 80px; filter: drop-shadow(7px 8px 0 rgba(0,0,0,.25)); }
+
+.adsense-placeholder {
+  width: min(728px, 100%);
+  min-height: 90px;
+  margin: 22px auto 14px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  border: 3px dashed #6f7787;
+  background: rgba(255, 255, 255, .94);
+  color: #3f4654;
+  text-shadow: none;
+  font-family: Arial, sans-serif;
+}
+
+.adsense-placeholder span,
+.adsense-placeholder small { font-size: 10px; letter-spacing: .16em; }
+.adsense-placeholder strong { font-size: clamp(13px, 2.2vw, 18px); }
+.ad-return { animation: stamp .22s cubic-bezier(.2, 1.8, .5, 1); }
 
 .score-strip {
   display: flex;

@@ -74,6 +74,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [hasSave, setHasSave] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
+  const [showAdReturn, setShowAdReturn] = useState(false);
   const [testQuestionIndex, setTestQuestionIndex] = useState(3);
   const [testMode, setTestMode] = useState(false);
   const installPrompt = useRef<Event & { prompt: () => Promise<void> } | null>(null);
@@ -142,6 +143,15 @@ export default function Home() {
     if (phase === 'landing') return;
     localStorage.setItem('tig_session', JSON.stringify({ phase, questionIndex, lives, skips, furthest, bingScore }));
   }, [phase, questionIndex, lives, skips, furthest, bingScore]);
+
+  useEffect(() => {
+    if (phase !== 'ad') {
+      setShowAdReturn(false);
+      return;
+    }
+    const reveal = window.setTimeout(() => setShowAdReturn(true), 2000);
+    return () => window.clearTimeout(reveal);
+  }, [phase]);
 
   const begin = () => {
     setTestMode(false);
@@ -243,7 +253,7 @@ export default function Home() {
       setSkips((value) => value + 1);
       track('skip_collected');
     }
-    window.setTimeout(advance, 850);
+    window.setTimeout(advance, 1600);
     tone(660, 0.12, 'square');
   };
 
@@ -355,7 +365,7 @@ export default function Home() {
     if (golfPower >= (question.golfTargetPower ?? 70)) {
       setFeedback('PERFECT! STRAIGHT INTO THE TREES. ADVANCE IMMEDIATELY.');
       tone(620, 0.3, 'triangle');
-      window.setTimeout(advance, 1000);
+      window.setTimeout(advance, 1600);
     } else {
       loseLife('THE FAIRWAY', 'DISASTER! YOU HIT THE FAIRWAY LIKE THE INSTRUCTIONS SAID.');
       setGolfPower(0);
@@ -499,12 +509,16 @@ export default function Home() {
       <main className="game-shell">
         {hud}
         <section className="commercial">
-          <p>A WORD FROM OUR CORPORATE OVERLORDS</p>
+          <p>A WORD FROM OUR CORPORATE SPONSORS</p>
           <h1>EXECUTIVE-PREMIUM<br />NOTHING BURGERS</h1>
           <div className="burger" aria-hidden="true">🍔</div>
           <p>THIS MESSAGE DEFINITELY HAD NO EFFECT ON POLICY.</p>
-          <small>HOUSE CREATIVE — NOT A PAID ADVERTISEMENT</small>
-          <button className="secondary-button" type="button" onClick={() => enterQuestion(5)}>RETURN TO CHAOS</button>
+          <div className="adsense-placeholder" aria-label="Advertisement placeholder">
+            <span>ADVERTISEMENT</span>
+            <strong>GOOGLE ADSENSE PLACEMENT</strong>
+            <small>728 × 90 RESPONSIVE AD UNIT</small>
+          </div>
+          {showAdReturn && <button className="secondary-button ad-return" type="button" onClick={() => enterQuestion(5)}>RETURN TO CHAOS</button>}
         </section>
       </main>
     );
@@ -581,8 +595,8 @@ export default function Home() {
           <div className="answer-grid">
             {choices?.map((choice, index) => (
               <button key={choice} type="button" aria-disabled={locked} onClick={() => answer(index)}>
-                <span>{String.fromCharCode(65 + index)}</span>
-                {question.type === 'live' && index === 1 ? String(liveMetric) : choice}
+                <span className="answer-letter">{String.fromCharCode(65 + index)}</span>
+                <span className="answer-copy">{question.type === 'live' && index === 1 ? String(liveMetric) : choice}</span>
               </button>
             ))}
           </div>
