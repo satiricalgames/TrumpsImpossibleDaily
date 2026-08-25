@@ -2,6 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import questionsData from '@/content/questions.json';
+import executiveMetricsData from '@/content/executive_metrics.json';
+import jokesData from '@/content/jokes.json';
+import rotatingOrdersData from '@/content/rotating_orders.json';
 
 type Phase = 'landing' | 'question' | 'bing' | 'golf' | 'ad' | 'gameover';
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
@@ -25,7 +28,11 @@ type Question = {
   feedback: string[];
 };
 
-const QUESTIONS = questionsData as Question[];
+const CORE_QUESTIONS = questionsData as Question[];
+const ROTATING_QUESTIONS = rotatingOrdersData.enabled
+  ? (rotatingOrdersData.orders.filter((order) => order.enabled) as Question[])
+  : [];
+const QUESTIONS = [...CORE_QUESTIONS, ...ROTATING_QUESTIONS];
 
 const BING_LABELS = [
   [0, 39, 'LOW ENERGY'],
@@ -63,7 +70,7 @@ export default function Home() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [challenge, setChallenge] = useState<{ score: number; bing: number } | null>(null);
-  const [liveMetric, setLiveMetric] = useState(27);
+  const [liveMetric] = useState(Number(executiveMetricsData.activeInjunctions) || 27);
   const [copied, setCopied] = useState(false);
   const [hasSave, setHasSave] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
@@ -112,7 +119,6 @@ export default function Home() {
     setHasSave(Boolean(localStorage.getItem('tig_session')));
     const params = new URLSearchParams(window.location.search);
     if (params.has('beat')) setChallenge({ score: Number(params.get('beat') ?? 0), bing: Number(params.get('bing') ?? 0) });
-    fetch('/executive_metrics.json').then((response) => response.json()).then((data) => setLiveMetric(Number(data.activeInjunctions) || 27)).catch(() => {});
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(() => {});
     const captureInstall = (event: Event) => {
       event.preventDefault();
@@ -276,7 +282,7 @@ export default function Home() {
     if (phase !== 'question' || !locked) return;
     const recovery = window.setTimeout(() => {
       setLocked(false);
-      if (!feedback) setFeedback('THE BUTTONS HAVE BEEN RELEASED BY COURT ORDER. TRY AGAIN.');
+      if (!feedback) setFeedback(jokesData.recoveryMessages[0] ?? 'THE BUTTONS HAVE BEEN RELEASED BY COURT ORDER. TRY AGAIN.');
     }, 1800);
     return () => window.clearTimeout(recovery);
   }, [feedback, locked, phase]);
@@ -371,7 +377,17 @@ export default function Home() {
     advance();
   };
 
-  const shareText = useMemo(() => `I reached Question ${furthest} before ${failureType} changed the rules. BING score: ${bingScore}. Beat that.`, [bingScore, failureType, furthest]);
+  const shareText = useMemo(() => {
+    const template = furthest <= 3
+      ? jokesData.shareTemplates.early
+      : furthest >= 8
+        ? jokesData.shareTemplates.late
+        : jokesData.shareTemplates.default;
+    return template
+      .replace('{question}', String(furthest))
+      .replace('{failureType}', failureType)
+      .replace('{bingScore}', String(bingScore));
+  }, [bingScore, failureType, furthest]);
 
   const share = async () => {
     const url = `${window.location.origin}${window.location.pathname}?beat=${furthest}&bing=${bingScore}`;
@@ -425,17 +441,17 @@ export default function Home() {
             <button type="button" aria-pressed={reducedMotion} onClick={() => setReducedMotion((value) => !value)}>{reducedMotion ? '✓ REDUCED MOTION' : 'REDUCE MOTION'}</button>
           </div>
           <div className="test-panel">
-            <label htmlFor="test-question">TEST MODE — JUMP DIRECTLY TO</label>
+            <label htmlFor="test-question">{jokesData.labels.testMode}</label>
             <div>
               <select id="test-question" value={testQuestionIndex} onChange={(event) => setTestQuestionIndex(Number(event.target.value))}>
-                {QUESTIONS.map((item, index) => <option key={item.id} value={index}>Q{item.number}: {item.type}</option>)}
+                {QUESTIONS.map((item, index) => <option key={item.id} value={index}>{item.number > 47 ? jokesData.labels.rotatingPrefix : 'Q'}{item.number}: {item.type}</option>)}
               </select>
-              <button type="button" onClick={startTestQuestion}>TEST QUESTION</button>
+              <button type="button" onClick={startTestQuestion}>{jokesData.labels.testButton}</button>
             </div>
           </div>
           <p className="fine-print">Independent parody/satire. Not affiliated with any person, campaign, broadcaster or game studio.<br />Contains mild flashing and shaking effects; use Reduced Motion to disable them.</p>
         </section>
-        <div className="ticker" aria-hidden="true"><span>BREAKING: MANY PEOPLE ARE CALLING THIS THE MOST IMPOSSIBLE GAME EVER MADE</span></div>
+        <div className="ticker" aria-hidden="true"><span>{jokesData.tickerHeadlines[0] ?? executiveMetricsData.tickerHeadline}</span></div>
       </main>
     );
   }

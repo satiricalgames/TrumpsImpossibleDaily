@@ -1,0 +1,22 @@
+{
+  "tickerHeadlines": [
+    "BREAKING: MANY PEOPLE ARE CALLING THIS THE MOST IMPOSSIBLE GAME EVER MADE",
+    "EXCLUSIVE: FACTS SEEN LEAVING THE BUILDING",
+    "DEVELOPING: BUTTON CLAIMS IT WAS NEVER CLICKED"
+  ],
+  "recoveryMessages": [
+    "THE BUTTONS HAVE BEEN RELEASED BY COURT ORDER. TRY AGAIN.",
+    "A TECHNICAL ADVISER HAS BEEN FIRED. TRY THE BUTTON AGAIN."
+  ],
+  "shareTemplates": {
+    "default": "I reached Question {question} before {failureType} changed the rules. BING score: {bingScore}. Beat that.",
+    "early": "TOTAL DISASTER! I only reached Question {question}. BING score: {bingScore}.",
+    "late": "SO CLOSE! I reached Question {question} before {failureType} blocked the transition."
+  },
+  "labels": {
+    "testMode": "TEST MODE — JUMP DIRECTLY TO",
+    "testButton": "TEST QUESTION",
+    "rotatingPrefix": "EXECUTIVE ORDER"
+  }
+}
+

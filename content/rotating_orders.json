@@ -1,0 +1,29 @@
+{
+  "enabled": true,
+  "activeOrderId": "eo-facts-may-vary",
+  "orders": [
+    {
+      "id": "eo-facts-may-vary",
+      "enabled": true,
+      "number": 101,
+      "type": "standard",
+      "kicker": "ROTATING EXECUTIVE ORDER",
+      "prompt": "Executive Order 47-B declares that facts may vary by what?",
+      "choices": ["Time zone", "Audience size", "Snack availability", "All of the above"],
+      "correctIndex": 3,
+      "feedback": ["TIME ZONES HAVE BEEN SUSPENDED.", "THE AUDIENCE WAS DIGITALLY ENHANCED.", "SNACKS ARE A MATTER OF NATIONAL SECURITY.", "ORDER SIGNED. REALITY UPDATED."]
+    },
+    {
+      "id": "eo-golf-emergency",
+      "enabled": false,
+      "number": 102,
+      "type": "standard",
+      "kicker": "ROTATING EXECUTIVE ORDER",
+      "prompt": "What is the official response to a national golf emergency?",
+      "choices": ["Call a meeting", "Check the weather", "Move the hole", "Blame the wind"],
+      "correctIndex": 2,
+      "feedback": ["MEETINGS HAVE BEEN BANNED.", "WEATHER IS PARTISAN.", "CORRECT. THE HOLE NOW REPORTS TO YOU.", "THE WIND HAS LAWYERED UP."]
+    }
+  ]
+}
+
