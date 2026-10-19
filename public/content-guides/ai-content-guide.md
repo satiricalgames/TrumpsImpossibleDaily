@@ -104,7 +104,18 @@ The hotspot rectangle must remain inside the 0–100 percent game stage: `xPct +
 
 #### live
 
-Multiple choice driven by `content/executive_metrics.json`. The current renderer substitutes the live metric into answer index `1`, so the second choice is the dynamic answer. Include `choices`, `correctIndex`, `feedback`, `sources`, and an `internal` source pointing to `content/executive_metrics.json`. Do not describe a simulated value as a verified live statistic.
+Multiple choice driven by `content/executive_metrics.json`. Required fields include `metricKey`, `choices`, `correctIndex`, `feedback`, `sources`, and an `internal` source pointing to `content/executive_metrics.json`. The renderer substitutes the selected metric into the answer at `correctIndex`.
+
+Supported `metricKey` values are `activeInjunctions`, `golfCounter`, `simulatedPoll`, and `latestExecutiveOrder.value`. The other answer choices remain ordinary decoys. Do not describe a simulated or manually configured value as a verified live statistic. If the value represents a real fact, include the direct verified external source in the question's `sources` array.
+
+```json
+{
+  "type": "live",
+  "metricKey": "golfCounter",
+  "choices": ["190", "This value is replaced", "240", "Nobody is counting"],
+  "correctIndex": 1
+}
+```
 
 #### taco
 
@@ -131,6 +142,19 @@ Power-timing mini-game. Required field: `golfTargetPower` from 1 through 100, pl
 #### final
 
 The deliberately unwinnable terminal question. It must be Question 47, use `correctIndex: -1`, and include `choices`, one feedback line per choice, and `sources`. Do not create a second final question.
+
+## executive_metrics.json
+
+This is the common answer bank for `live` questions. Its selectable numeric keys are:
+
+- `activeInjunctions`
+- `golfCounter`
+- `simulatedPoll`
+- `latestExecutiveOrder.value`
+
+Preserve the complete object, including `latestExecutiveOrder`, `tickerHeadline`, and `lastUpdated`. Use whole non-negative numbers; `simulatedPoll` must be from 0 through 100. Use an ISO date and time for `lastUpdated` and `YYYY-MM-DD` for `latestExecutiveOrder.date`.
+
+The metrics file stores values, not evidence. Every factual live question must also carry an `internal` source for `content/executive_metrics.json` and a direct verified external source location supporting the answer. A value intended purely as game satire must be clearly labelled as simulated in the question and its provenance note.
 
 ### Prompt for an AI question-research task
 

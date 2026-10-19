@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import questionsData from '@/content/questions.json';
+import executiveMetricsData from '@/content/executive_metrics.json';
 
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
 type SourceKind = 'reference' | 'official' | 'internal' | 'original_satire' | 'user_supplied_asset';
@@ -30,6 +31,7 @@ type Question = {
   backtrackBy?: number;
   timerSeconds?: number;
   golfTargetPower?: number;
+  metricKey?: string;
   hotspot?: { xPct: number; yPct: number; widthPct: number; heightPct: number };
   missRules?: { clicksBeforeLifeLoss: number; maxLivesLost: number };
   audio?: { onTargetClick?: string; volume?: number };
@@ -52,7 +54,7 @@ const QUESTION_TYPES: Array<{ value: QuestionType; label: string; help: string }
   { value: 'standard', label: 'Standard multiple choice', help: 'Normal answer choices with one correct answer and optional Skip reward.' },
   { value: 'injunction', label: 'Injunction', help: 'The first click rewrites every answer; the player then answers the rewritten choices.' },
   { value: 'hotspot', label: 'Hidden hotspot', help: 'Timed question with a responsive hidden rectangular click target and miss penalties.' },
-  { value: 'live', label: 'Live metric', help: 'Multiple choice whose second answer displays the current executive metric.' },
+  { value: 'live', label: 'Live metric', help: 'Multiple choice whose correct answer displays a selected value from executive_metrics.json.' },
   { value: 'taco', label: 'Taco trap', help: 'Multiple choice with one trap answer that sends the player backwards.' },
   { value: 'bing', label: 'BING mini-game', help: 'Timed rapid-click score challenge with a dedicated sound file.' },
   { value: 'golf', label: 'Golf mini-game', help: 'Power-timing challenge with a configured target power.' },
@@ -60,6 +62,12 @@ const QUESTION_TYPES: Array<{ value: QuestionType; label: string; help: string }
 ];
 
 const CHOICE_TYPES = new Set<QuestionType>(['standard', 'injunction', 'live', 'taco', 'final']);
+const METRIC_OPTIONS = [
+  { value: 'activeInjunctions', label: 'Active injunctions', current: executiveMetricsData.activeInjunctions },
+  { value: 'golfCounter', label: 'Golf counter', current: executiveMetricsData.golfCounter },
+  { value: 'simulatedPoll', label: 'Simulated poll', current: executiveMetricsData.simulatedPoll },
+  { value: 'latestExecutiveOrder.value', label: 'Latest executive order value', current: executiveMetricsData.latestExecutiveOrder.value },
+];
 
 function cloneQuestion(question: Question): Question {
   return JSON.parse(JSON.stringify(question)) as Question;
@@ -87,6 +95,7 @@ function blankQuestion(type: QuestionType, number: number): Question {
     base.correctIndex = type === 'final' ? -1 : 0;
   }
   if (type === 'injunction') base.rewrittenChoices = ['', '', '', ''];
+  if (type === 'live') base.metricKey = 'activeInjunctions';
   if (type === 'hotspot') {
     base.timerSeconds = 15;
     base.hotspot = { xPct: 50, yPct: 50, widthPct: 8, heightPct: 10 };
@@ -154,6 +163,7 @@ function validateQuestion(question: Question, questions: Question[], editingId: 
       errors.push('Correct answer index is outside the answer list.');
     }
     if (question.type === 'injunction' && compactLines(question.rewrittenChoices).length !== choices.length) errors.push('Injunction questions need one rewritten choice per original choice.');
+    if (question.type === 'live' && !METRIC_OPTIONS.some((metric) => metric.value === question.metricKey)) errors.push('Choose a valid executive metric for this live question.');
     if (question.type === 'taco' && ((question.trapIndex ?? -1) < 0 || (question.trapIndex ?? -1) >= choices.length)) errors.push('Trap index is outside the answer list.');
   }
   if (question.type === 'hotspot') {
@@ -381,6 +391,7 @@ export default function QuestionEditor() {
           <button type="button" onClick={saveLocalFile}>SAVE TO OPEN FILE</button>
           <button type="button" onClick={downloadJson}>DOWNLOAD questions.json</button>
           <button type="button" onClick={copyJson}>COPY JSON</button>
+          <a href="/executive-metrics-editor">OPEN EXECUTIVE METRICS EDITOR</a>
           <a href="/content-guides/ai-content-guide.md" download>DOWNLOAD AI CONTENT GUIDE</a>
           <button type="button" className="editor-quiet" onClick={resetBuiltIn}>RESET TO BUILT-IN</button>
         </div>
@@ -419,6 +430,7 @@ export default function QuestionEditor() {
             </>}
 
             {draft.type === 'standard' && <label className="editor-check editor-span"><input type="checkbox" checked={Boolean(draft.grantSkip)} onChange={(event) => patchDraft({ grantSkip: event.target.checked })} /><span>A correct answer grants one Skip</span></label>}
+            {draft.type === 'live' && <label className="editor-field editor-span"><span>Executive metric</span><small>The current value replaces the answer at the correct-answer index. Edit values on the Executive Metrics Editor page.</small><select value={draft.metricKey ?? ''} onChange={(event) => patchDraft({ metricKey: event.target.value })}><option value="">Select a metric…</option>{METRIC_OPTIONS.map((metric) => <option key={metric.value} value={metric.value}>{metric.label} · current value {metric.current}</option>)}</select></label>}
             {draft.type === 'injunction' && <LinesField label="Rewritten choices" hint="One replacement per original answer, in the same order." value={draft.rewrittenChoices} onChange={(rewrittenChoices) => patchDraft({ rewrittenChoices })} />}
             {draft.type === 'taco' && <>
               <label className="editor-field"><span>Trap answer index</span><input type="number" min={0} value={draft.trapIndex ?? 1} onChange={(event) => patchDraft({ trapIndex: Number(event.target.value) })} /></label>

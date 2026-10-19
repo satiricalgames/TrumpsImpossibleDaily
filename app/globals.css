@@ -802,6 +802,8 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .editor-json-preview summary { cursor: pointer; padding: 11px; background: #e9edf4; font-weight: 900; }
 .editor-json-preview pre { max-height: 520px; overflow: auto; margin: 0; padding: 14px; color: #dff7e5; background: #071225; font: 12px/1.5 Consolas, monospace; white-space: pre-wrap; }
 .editor-subheading { margin: 12px 0 -2px; padding: 10px 0 6px; color: #123a82; border-bottom: 3px solid #123a82; font: 900 16px "Arial Black", Arial, sans-serif; }
+.editor-notice { display: flex; gap: 12px; margin-top: 18px; padding: 12px 14px; color: #273550; background: #e7f0ff; border: 2px solid #7292c5; line-height: 1.4; }
+.editor-notice strong { flex: 0 0 auto; color: #123a82; font-size: 12px; letter-spacing: .08em; }
 .editor-file-settings { display: grid; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 4px solid #071b46; }
 .editor-file-settings > strong { color: #a30018; font: 900 11px Arial, sans-serif; letter-spacing: .1em; }
 .editor-file-settings .editor-select-label select { margin-bottom: 0; }
@@ -824,4 +826,5 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   .editor-form-title,
   .editor-section-heading,
   .editor-apply-row { align-items: stretch; flex-direction: column; }
+  .editor-notice { flex-direction: column; }
 }

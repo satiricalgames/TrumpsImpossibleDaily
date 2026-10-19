@@ -33,6 +33,7 @@ type Question = {
   backtrackBy?: number;
   timerSeconds?: number;
   golfTargetPower?: number;
+  metricKey?: string;
   hotspot?: { xPct: number; yPct: number; widthPct: number; heightPct: number };
   missRules?: { clicksBeforeLifeLoss: number; maxLivesLost: number };
   audio?: { onTargetClick?: string; volume?: number };
@@ -47,6 +48,16 @@ const ROTATING_QUESTIONS = rotatingOrdersData.enabled
 const FINAL_QUESTION = CORE_QUESTIONS.find((question) => question.number === 47 || question.type === 'final');
 const REGULAR_QUESTIONS = CORE_QUESTIONS.filter((question) => question !== FINAL_QUESTION);
 const FULL_QUESTIONS = [...REGULAR_QUESTIONS, ...ROTATING_QUESTIONS, ...(FINAL_QUESTION ? [FINAL_QUESTION] : [])];
+
+function readMetric(path: string | undefined): string {
+  const parts = (path || 'activeInjunctions').split('.');
+  let current: unknown = executiveMetricsData;
+  for (const part of parts) {
+    if (!current || typeof current !== 'object' || !(part in current)) return 'N/A';
+    current = (current as Record<string, unknown>)[part];
+  }
+  return typeof current === 'number' || typeof current === 'string' ? String(current) : 'N/A';
+}
 
 function shuffled<T>(items: T[]) {
   const copy = [...items];
@@ -101,7 +112,7 @@ export default function Home() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [challenge, setChallenge] = useState<{ score: number; bing: number } | null>(null);
-  const [liveMetric] = useState(Number(executiveMetricsData.activeInjunctions) || 27);
+  const activeInjunctionMetric = readMetric('activeInjunctions');
   const [copied, setCopied] = useState(false);
   const [hasSave, setHasSave] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
@@ -113,6 +124,7 @@ export default function Home() {
   const bingAudio = useRef<HTMLAudioElement | null>(null);
   const bingScoreRef = useRef(0);
   const question = gameQuestions[questionIndex] ?? FULL_QUESTIONS[0];
+  const liveMetric = readMetric(question.metricKey);
 
   const track = useCallback((event: string, data: Record<string, unknown> = {}) => {
     try {
@@ -684,14 +696,14 @@ export default function Home() {
             {choices?.map((choice, index) => (
               <button key={choice} type="button" aria-disabled={locked} onClick={() => answer(index)}>
                 <span className="answer-letter">{String.fromCharCode(65 + index)}</span>
-                <span className="answer-copy">{question.type === 'live' && index === 1 ? String(liveMetric) : choice}</span>
+                <span className="answer-copy">{question.type === 'live' && index === question.correctIndex ? liveMetric : choice}</span>
               </button>
             ))}
           </div>
         )}
         {feedback && <div className={`feedback ${feedback.includes('CORRECT') || feedback.includes('FOUND') ? 'success' : ''}`}>{feedback}</div>}
       </section>
-      <aside className="status-ticker">FURTHEST: Q{furthest} • BING PB: {bestBing} • LIVE INJUNCTIONS: {liveMetric}</aside>
+      <aside className="status-ticker">FURTHEST: Q{furthest} • BING PB: {bestBing} • LIVE INJUNCTIONS: {activeInjunctionMetric}</aside>
     </main>
   );
 }

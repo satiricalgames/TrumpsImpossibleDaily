@@ -99,6 +99,7 @@
     "id": "live-injunctions",
     "number": 5,
     "type": "live",
+    "metricKey": "activeInjunctions",
     "kicker": "LIVE EXECUTIVE METRICS",
     "prompt": "How many active injunctions are on the totally real scoreboard?",
     "choices": ["24", "27", "31", "They have lost count"],
