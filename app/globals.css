@@ -147,6 +147,43 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .begin-button:active,
 .secondary-button:active { transform: translateY(6px); box-shadow: 0 2px 0 #72000f; }
 
+.game-mode-picker {
+  margin: 20px auto 0;
+}
+
+.game-mode-picker > p {
+  margin: 0 0 10px;
+  font: 900 13px/1 Arial, sans-serif;
+  letter-spacing: .12em;
+}
+
+.game-mode-picker > div {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mode-button {
+  min-width: min(270px, 82vw);
+  padding: 12px 22px;
+}
+
+.mode-button strong,
+.mode-button span {
+  display: block;
+}
+
+.mode-button strong {
+  font-size: clamp(20px, 4vw, 28px);
+}
+
+.mode-button span {
+  margin-top: 4px;
+  font: 900 10px/1 Arial, sans-serif;
+  letter-spacing: .15em;
+}
+
 .text-button {
   border: 0;
   background: transparent;

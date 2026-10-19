@@ -8,6 +8,7 @@ import rotatingOrdersData from '@/content/rotating_orders.json';
 
 type Phase = 'landing' | 'question' | 'bing' | 'golf' | 'ad' | 'gameover';
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
+type GameMode = 'short' | 'full';
 
 type Question = {
   id: string;
@@ -33,7 +34,24 @@ const CORE_QUESTIONS = questionsData as Question[];
 const ROTATING_QUESTIONS = rotatingOrdersData.enabled
   ? (rotatingOrdersData.orders.filter((order) => order.enabled) as Question[])
   : [];
-const QUESTIONS = [...CORE_QUESTIONS, ...ROTATING_QUESTIONS];
+const FINAL_QUESTION = CORE_QUESTIONS.find((question) => question.number === 47 || question.type === 'final');
+const REGULAR_QUESTIONS = CORE_QUESTIONS.filter((question) => question !== FINAL_QUESTION);
+const FULL_QUESTIONS = [...REGULAR_QUESTIONS, ...ROTATING_QUESTIONS, ...(FINAL_QUESTION ? [FINAL_QUESTION] : [])];
+
+function shuffled<T>(items: T[]) {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+  return copy;
+}
+
+function createShortGame() {
+  const selected = shuffled(FULL_QUESTIONS.filter((question) => question.type !== 'final')).slice(0, 9);
+  const numbered = selected.map((question, index) => ({ ...question, number: index + 1 }));
+  return FINAL_QUESTION ? [...numbered, { ...FINAL_QUESTION, number: 10 }] : numbered;
+}
 
 const BING_LABELS = [
   [0, 39, 'LOW ENERGY'],
@@ -53,6 +71,8 @@ function Hat({ lost = false }: { lost?: boolean }) {
 
 export default function Home() {
   const [phase, setPhase] = useState<Phase>('landing');
+  const [gameMode, setGameMode] = useState<GameMode>('full');
+  const [gameQuestions, setGameQuestions] = useState<Question[]>(FULL_QUESTIONS);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [lives, setLives] = useState(3);
   const [skips, setSkips] = useState(0);
@@ -82,7 +102,7 @@ export default function Home() {
   const audioContext = useRef<AudioContext | null>(null);
   const bingAudio = useRef<HTMLAudioElement | null>(null);
   const bingScoreRef = useRef(0);
-  const question = QUESTIONS[questionIndex];
+  const question = gameQuestions[questionIndex] ?? FULL_QUESTIONS[0];
 
   const track = useCallback((event: string, data: Record<string, unknown> = {}) => {
     try {
@@ -142,7 +162,7 @@ export default function Home() {
   }, [soundEnabled]);
 
   useEffect(() => {
-    const source = QUESTIONS.find((item) => item.type === 'bing')?.audio;
+    const source = FULL_QUESTIONS.find((item) => item.type === 'bing')?.audio;
     if (!source?.onTargetClick) return;
     const audio = new Audio(source.onTargetClick);
     audio.preload = 'auto';
@@ -156,8 +176,17 @@ export default function Home() {
 
   useEffect(() => {
     if (phase === 'landing') return;
-    localStorage.setItem('tig_session', JSON.stringify({ phase, questionIndex, lives, skips, furthest, bingScore }));
-  }, [phase, questionIndex, lives, skips, furthest, bingScore]);
+    localStorage.setItem('tig_session', JSON.stringify({
+      phase,
+      gameMode,
+      questionIds: gameQuestions.map((item) => item.id),
+      questionIndex,
+      lives,
+      skips,
+      furthest,
+      bingScore,
+    }));
+  }, [phase, gameMode, gameQuestions, questionIndex, lives, skips, furthest, bingScore]);
 
   useEffect(() => {
     if (phase !== 'ad') {
@@ -168,9 +197,11 @@ export default function Home() {
     return () => window.clearTimeout(reveal);
   }, [phase]);
 
-  const begin = () => {
+  const begin = (mode: GameMode) => {
+    const sequence = mode === 'short' ? createShortGame() : FULL_QUESTIONS;
     setTestMode(false);
-    setPhase('question');
+    setGameMode(mode);
+    setGameQuestions(sequence);
     setQuestionIndex(0);
     setLives(3);
     setSkips(0);
@@ -179,12 +210,15 @@ export default function Home() {
     bingScoreRef.current = 0;
     setFeedback('');
     setFailureType('THE RULES');
-    track('game_start');
+    setHasSave(true);
+    track('game_start', { mode, questionCount: mode === 'short' ? 10 : 47 });
     tone(420, 0.16, 'sawtooth');
+    enterQuestion(0, sequence);
   };
 
-  const enterQuestion = useCallback((index: number) => {
-    const next = QUESTIONS[index];
+  const enterQuestion = useCallback((index: number, sequence = gameQuestions) => {
+    const next = sequence[index];
+    if (!next) return;
     setQuestionIndex(index);
     setFurthest((value) => Math.max(value, next.number));
     setFeedback('');
@@ -207,16 +241,18 @@ export default function Home() {
       setPhase('question');
       track('question_view', { question: next.number, type: next.type });
     }
-  }, [track]);
+  }, [gameQuestions, track]);
 
   const startTestQuestion = () => {
     setTestMode(true);
+    setGameMode('full');
+    setGameQuestions(FULL_QUESTIONS);
     setLives(3);
     setSkips(2);
-    setFurthest(QUESTIONS[testQuestionIndex].number);
+    setFurthest(FULL_QUESTIONS[testQuestionIndex].number);
     setBingScore(0);
     setFeedback('');
-    enterQuestion(testQuestionIndex);
+    enterQuestion(testQuestionIndex, FULL_QUESTIONS);
   };
 
   const gameOver = useCallback((reason: string) => {
@@ -253,12 +289,12 @@ export default function Home() {
       track('ad_break_shown', { placement: 1 });
       return;
     }
-    if (nextIndex >= QUESTIONS.length) {
+    if (nextIndex >= gameQuestions.length) {
       gameOver('EXECUTIVE PRIVILEGE');
       return;
     }
     enterQuestion(nextIndex);
-  }, [enterQuestion, gameOver, questionIndex, track]);
+  }, [enterQuestion, gameOver, gameQuestions.length, questionIndex, track]);
 
   const correct = (message: string, grantSkip = false) => {
     if (locked) return;
@@ -441,14 +477,30 @@ export default function Home() {
 
   const resume = () => {
     try {
-      const saved = JSON.parse(localStorage.getItem('tig_session') ?? '{}') as { questionIndex?: number; lives?: number; skips?: number; bingScore?: number };
-      if (typeof saved.questionIndex !== 'number') return begin();
+      const saved = JSON.parse(localStorage.getItem('tig_session') ?? '{}') as {
+        gameMode?: GameMode;
+        questionIds?: string[];
+        questionIndex?: number;
+        lives?: number;
+        skips?: number;
+        bingScore?: number;
+      };
+      if (typeof saved.questionIndex !== 'number') return;
+      const mode = saved.gameMode === 'short' ? 'short' : 'full';
+      const savedSequence = saved.questionIds
+        ?.map((id) => FULL_QUESTIONS.find((item) => item.id === id))
+        .filter((item): item is Question => Boolean(item));
+      const sequence = savedSequence?.length
+        ? savedSequence.map((item, index) => mode === 'short' ? { ...item, number: index + 1 } : item)
+        : FULL_QUESTIONS;
+      setGameMode(mode);
+      setGameQuestions(sequence);
       setLives(saved.lives ?? 3);
       setSkips(saved.skips ?? 0);
       setBingScore(saved.bingScore ?? 0);
-      enterQuestion(Math.min(saved.questionIndex, QUESTIONS.length - 1));
+      enterQuestion(Math.min(saved.questionIndex, sequence.length - 1), sequence);
     } catch {
-      begin();
+      setPhase('landing');
     }
   };
 
@@ -462,7 +514,17 @@ export default function Home() {
           <h1><span>TRUMP&apos;S</span> IMPOSSIBLE GAME</h1>
           <p className="promise">THE GAME IS RIGGED. THE ANSWERS CHANGE.<br />FACTS DON&apos;T HELP. GOOD LUCK.</p>
           {challenge && <div className="challenge">A FRIEND REACHED Q{challenge.score} WITH {challenge.bing} BINGS. HUMILIATE THEM.</div>}
-          <button className="begin-button" type="button" onClick={begin}>BEGIN YOUR PRESIDENCY</button>
+          <div className="game-mode-picker" role="group" aria-label="Choose game length">
+            <p>CHOOSE YOUR PRESIDENTIAL TERM</p>
+            <div>
+              <button className="begin-button mode-button" type="button" onClick={() => begin('short')}>
+                <strong>10 QUESTIONS</strong><span>QUICK CHAOS</span>
+              </button>
+              <button className="secondary-button mode-button" type="button" onClick={() => begin('full')}>
+                <strong>47 QUESTIONS</strong><span>THE FULL DISASTER</span>
+              </button>
+            </div>
+          </div>
           {hasSave && <button className="text-button" type="button" onClick={resume}>RESUME THE INVESTIGATION</button>}
           <div className="landing-controls">
             <button type="button" aria-pressed={!soundEnabled} onClick={() => setSoundEnabled((value) => !value)}>{soundEnabled ? '🔊 SOUND ON' : '🔇 SOUND OFF'}</button>
@@ -472,7 +534,7 @@ export default function Home() {
             <label htmlFor="test-question">{jokesData.labels.testMode}</label>
             <div>
               <select id="test-question" value={testQuestionIndex} onChange={(event) => setTestQuestionIndex(Number(event.target.value))}>
-                {QUESTIONS.map((item, index) => <option key={item.id} value={index}>{item.number > 47 ? jokesData.labels.rotatingPrefix : 'Q'}{item.number}: {item.type}</option>)}
+                {FULL_QUESTIONS.map((item, index) => <option key={item.id} value={index}>{item.number > 47 ? jokesData.labels.rotatingPrefix : 'Q'}{item.number}: {item.type}</option>)}
               </select>
               <button type="button" onClick={startTestQuestion}>{jokesData.labels.testButton}</button>
             </div>
@@ -501,7 +563,7 @@ export default function Home() {
         </section>
         <div className="result-actions">
           <button className="begin-button" type="button" onClick={share}>{copied ? 'RESULT COPIED!' : 'SHARE THE HUMILIATION'}</button>
-          <button className="secondary-button" type="button" onClick={begin}>DEMAND AN AUDIT & PLAY AGAIN</button>
+          <button className="secondary-button" type="button" onClick={() => setPhase('landing')}>DEMAND AN AUDIT & PLAY AGAIN</button>
           {canInstall && <button className="text-button" type="button" onClick={install}>INSTALL THE GAME</button>}
         </div>
       </main>
@@ -510,7 +572,7 @@ export default function Home() {
 
   const hud = (
     <header className="game-hud">
-      <span className="hud-label">QUESTION {question.number} / 47 {testMode && '• TEST MODE'}</span>
+      <span className="hud-label">QUESTION {question.number} / {gameMode === 'short' ? 10 : 47} {testMode && '• TEST MODE'}</span>
       <span aria-label={`${lives} lives remaining`} className="lives">
         {[0, 1, 2].map((index) => <Hat key={index} lost={index >= lives} />)}
       </span>
