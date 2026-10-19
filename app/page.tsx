@@ -9,6 +9,15 @@ import rotatingOrdersData from '@/content/rotating_orders.json';
 type Phase = 'landing' | 'question' | 'bing' | 'golf' | 'ad' | 'gameover';
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
 type GameMode = 'short' | 'full';
+type QuestionSource = {
+  kind: 'reference' | 'official' | 'internal' | 'original_satire' | 'user_supplied_asset';
+  title: string;
+  publisher?: string;
+  url?: string;
+  path?: string;
+  note?: string;
+  accessedOn?: string;
+};
 
 type Question = {
   id: string;
@@ -27,6 +36,7 @@ type Question = {
   hotspot?: { xPct: number; yPct: number; widthPct: number; heightPct: number };
   missRules?: { clicksBeforeLifeLoss: number; maxLivesLost: number };
   audio?: { onTargetClick?: string; volume?: number };
+  sources: QuestionSource[];
   feedback: string[];
 };
 

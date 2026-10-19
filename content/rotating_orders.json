@@ -11,6 +11,21 @@
       "prompt": "Executive Order 47-B declares that facts may vary by what?",
       "choices": ["Time zone", "Audience size", "Snack availability", "All of the above"],
       "correctIndex": 3,
+      "sources": [
+        {
+          "kind": "original_satire",
+          "title": "Original fictional Executive Order 47-B",
+          "note": "The order and all of its provisions are invented for the game."
+        },
+        {
+          "kind": "official",
+          "title": "Executive Orders",
+          "publisher": "Federal Register",
+          "url": "https://www.federalregister.gov/presidential-documents/executive-orders",
+          "note": "Official background on real executive orders; not evidence that fictional Order 47-B exists.",
+          "accessedOn": "2026-10-19"
+        }
+      ],
       "feedback": ["TIME ZONES HAVE BEEN SUSPENDED.", "THE AUDIENCE WAS DIGITALLY ENHANCED.", "SNACKS ARE A MATTER OF NATIONAL SECURITY.", "ORDER SIGNED. REALITY UPDATED."]
     },
     {
@@ -22,6 +37,21 @@
       "prompt": "What is the official response to a national golf emergency?",
       "choices": ["Call a meeting", "Check the weather", "Move the hole", "Blame the wind"],
       "correctIndex": 2,
+      "sources": [
+        {
+          "kind": "original_satire",
+          "title": "Original national golf emergency joke",
+          "note": "The emergency and response options are invented for the game."
+        },
+        {
+          "kind": "reference",
+          "title": "Our Properties",
+          "publisher": "Trump Golf",
+          "url": "https://www.trumpgolf.com/Our-Courses",
+          "note": "Background for the golf theme only.",
+          "accessedOn": "2026-10-19"
+        }
+      ],
       "feedback": ["MEETINGS HAVE BEEN BANNED.", "WEATHER IS PARTISAN.", "CORRECT. THE HOLE NOW REPORTS TO YOU.", "THE WIND HAS LAWYERED UP."]
     }
   ]
