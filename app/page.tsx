@@ -25,6 +25,7 @@ type Question = {
   golfTargetPower?: number;
   hotspot?: { xPct: number; yPct: number; widthPct: number; heightPct: number };
   missRules?: { clicksBeforeLifeLoss: number; maxLivesLost: number };
+  audio?: { onTargetClick?: string; volume?: number };
   feedback: string[];
 };
 
@@ -79,6 +80,7 @@ export default function Home() {
   const [testMode, setTestMode] = useState(false);
   const installPrompt = useRef<Event & { prompt: () => Promise<void> } | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
+  const bingAudio = useRef<HTMLAudioElement | null>(null);
   const bingScoreRef = useRef(0);
   const question = QUESTIONS[questionIndex];
 
@@ -138,6 +140,19 @@ export default function Home() {
   useEffect(() => {
     localStorage.setItem('tig_sound', String(soundEnabled));
   }, [soundEnabled]);
+
+  useEffect(() => {
+    const source = QUESTIONS.find((item) => item.type === 'bing')?.audio;
+    if (!source?.onTargetClick) return;
+    const audio = new Audio(source.onTargetClick);
+    audio.preload = 'auto';
+    audio.volume = source.volume ?? 1;
+    bingAudio.current = audio;
+    return () => {
+      audio.pause();
+      bingAudio.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     if (phase === 'landing') return;
@@ -357,7 +372,10 @@ export default function Home() {
       bingScoreRef.current = value + 1;
       return value + 1;
     });
-    tone(360 + Math.random() * 280, 0.09, Math.random() > 0.5 ? 'square' : 'sawtooth');
+    if (soundEnabled && bingAudio.current) {
+      bingAudio.current.currentTime = 0;
+      void bingAudio.current.play().catch(() => {});
+    }
   };
 
   const launchGolf = () => {

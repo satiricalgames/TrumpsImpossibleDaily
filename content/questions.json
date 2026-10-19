@@ -79,6 +79,10 @@
     "kicker": "SIGNATURE VIRAL MINI-GAME",
     "prompt": "MAKE HIM SAY BING!",
     "timerSeconds": 20,
+    "audio": {
+      "onTargetClick": "/assets/audio/minigames/bing/bing-bong.mp3",
+      "volume": 1
+    },
     "feedback": []
   },
   {

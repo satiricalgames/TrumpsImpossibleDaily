@@ -1,5 +1,5 @@
-const CACHE = 'trumps-impossible-game-v2';
-const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png'];
+const CACHE = 'trumps-impossible-game-v3';
+const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png', '/assets/audio/minigames/bing/bing-bong.mp3'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
