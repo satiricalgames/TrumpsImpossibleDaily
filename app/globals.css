@@ -735,6 +735,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .editor-status strong { color: #a30018; }
 
 .editor-layout { display: grid; grid-template-columns: minmax(250px, 330px) minmax(0, 1fr); gap: 18px; max-width: 1500px; margin: 0 auto; align-items: start; }
+.editor-single-layout { max-width: 1150px; margin: 0 auto; }
 .editor-sidebar,
 .editor-form-card { background: white; border: 2px solid #b4bdcc; box-shadow: 5px 6px 0 #cbd0d8; }
 .editor-sidebar { position: sticky; top: 16px; padding: 14px; }
@@ -800,6 +801,12 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .editor-json-preview { margin-top: 18px; border: 2px solid #aab4c5; }
 .editor-json-preview summary { cursor: pointer; padding: 11px; background: #e9edf4; font-weight: 900; }
 .editor-json-preview pre { max-height: 520px; overflow: auto; margin: 0; padding: 14px; color: #dff7e5; background: #071225; font: 12px/1.5 Consolas, monospace; white-space: pre-wrap; }
+.editor-subheading { margin: 12px 0 -2px; padding: 10px 0 6px; color: #123a82; border-bottom: 3px solid #123a82; font: 900 16px "Arial Black", Arial, sans-serif; }
+.editor-file-settings { display: grid; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 4px solid #071b46; }
+.editor-file-settings > strong { color: #a30018; font: 900 11px Arial, sans-serif; letter-spacing: .1em; }
+.editor-file-settings .editor-select-label select { margin-bottom: 0; }
+.editor-apply-actions > div { display: flex; flex-wrap: wrap; gap: 9px; }
+.editor-apply-row .editor-danger { background: #6e1020; }
 
 @media (max-width: 900px) {
   .question-editor-shell { padding: 12px; }
