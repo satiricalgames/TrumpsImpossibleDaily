@@ -709,6 +709,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .editor-header span { color: #d9e2f7; font-weight: 700; }
 .editor-file-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; max-width: 680px; }
 .editor-file-actions button,
+.editor-file-actions a,
 .editor-section-heading button,
 .editor-apply-row button {
   cursor: pointer;
@@ -718,8 +719,10 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   background: #e51d32;
   box-shadow: 3px 3px 0 #020817;
   font: 900 11px Arial, sans-serif;
+  text-decoration: none;
 }
 .editor-file-actions .editor-quiet { background: #34466a; }
+.editor-hidden-input { display: none; }
 
 .editor-status {
   max-width: 1500px;

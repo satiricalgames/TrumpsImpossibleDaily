@@ -184,6 +184,7 @@ export default function QuestionEditor() {
   const [status, setStatus] = useState('Loaded the built-in question bank.');
   const [dirty, setDirty] = useState(false);
   const fileHandle = useRef<LocalFileHandle | null>(null);
+  const uploadInput = useRef<HTMLInputElement | null>(null);
 
   const typeInfo = useMemo(() => QUESTION_TYPES.find((item) => item.value === draft.type)!, [draft.type]);
   const jsonText = useMemo(() => `${JSON.stringify([...questions].sort((a, b) => a.number - b.number), null, 2)}\n`, [questions]);
@@ -274,6 +275,54 @@ export default function QuestionEditor() {
     }
   };
 
+  const importJsonFile = async (file?: File) => {
+    if (!file) return;
+    try {
+      const parsed = JSON.parse(await file.text()) as unknown;
+      if (!Array.isArray(parsed) || !parsed.length) throw new Error('Upload a non-empty questions.json array.');
+      const imported = parsed as Question[];
+      const ids = new Set<string>();
+      const numbers = new Set<number>();
+      const importErrors: string[] = [];
+      imported.forEach((question, index) => {
+        const label = `Item ${index + 1}`;
+        if (!question || typeof question !== 'object') {
+          importErrors.push(`${label} is not a question object.`);
+          return;
+        }
+        if (typeof question.id !== 'string' || typeof question.number !== 'number' || typeof question.kicker !== 'string' || typeof question.prompt !== 'string' || !Array.isArray(question.feedback) || !Array.isArray(question.sources)) {
+          importErrors.push(`${label} is missing one or more common fields: id, number, kicker, prompt, feedback or sources.`);
+          return;
+        }
+        if (!QUESTION_TYPES.some((type) => type.value === question.type)) importErrors.push(`${label} has unsupported type “${String(question.type)}”.`);
+        if (ids.has(question.id)) importErrors.push(`${label} repeats ID “${question.id}”.`);
+        if (numbers.has(question.number)) importErrors.push(`${label} repeats question number ${question.number}.`);
+        ids.add(question.id);
+        numbers.add(question.number);
+        validateQuestion(question, imported, question.id).forEach((error) => importErrors.push(`${label} (${question.id || 'no ID'}): ${error}`));
+      });
+      if (importErrors.length) {
+        setErrors(importErrors.slice(0, 30));
+        setStatus(`Import rejected: ${importErrors.length} validation issue${importErrors.length === 1 ? '' : 's'} found.`);
+        return;
+      }
+      const normalized = imported.map(normalizeQuestion).sort((a, b) => a.number - b.number);
+      setQuestions(normalized);
+      setMode('edit');
+      setEditingId(normalized[0].id);
+      setDraft(cloneQuestion(normalized[0]));
+      fileHandle.current = null;
+      setDirty(true);
+      setErrors([]);
+      setStatus(`Imported all ${normalized.length} questions from ${file.name}. Review them, then save or download the complete JSON.`);
+    } catch (error) {
+      setErrors([]);
+      setStatus((error as Error).message || 'The uploaded JSON file could not be read.');
+    } finally {
+      if (uploadInput.current) uploadInput.current.value = '';
+    }
+  };
+
   const saveLocalFile = async () => {
     if (!fileHandle.current) {
       setStatus('Open your local questions.json first, or use Download questions.json.');
@@ -326,10 +375,13 @@ export default function QuestionEditor() {
       <header className="editor-header">
         <div><p>PRIVATE CONTENT TOOL</p><h1>QUESTION JSON EDITOR</h1><span>Unlinked from the game. Nothing changes until you save or download the complete JSON file.</span></div>
         <div className="editor-file-actions">
+          <input ref={uploadInput} className="editor-hidden-input" type="file" accept=".json,application/json" onChange={(event) => void importJsonFile(event.target.files?.[0])} />
+          <button type="button" onClick={() => uploadInput.current?.click()}>UPLOAD WHOLE questions.json</button>
           <button type="button" onClick={openLocalFile}>OPEN LOCAL questions.json</button>
           <button type="button" onClick={saveLocalFile}>SAVE TO OPEN FILE</button>
           <button type="button" onClick={downloadJson}>DOWNLOAD questions.json</button>
           <button type="button" onClick={copyJson}>COPY JSON</button>
+          <a href="/content-guides/ai-content-guide.md" download>DOWNLOAD AI CONTENT GUIDE</a>
           <button type="button" className="editor-quiet" onClick={resetBuiltIn}>RESET TO BUILT-IN</button>
         </div>
       </header>
