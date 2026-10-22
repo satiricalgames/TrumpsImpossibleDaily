@@ -83,6 +83,8 @@ const BING_LABELS = [
   [150, Infinity, 'NOBODY HAS EVER BINGED LIKE THIS'],
 ] as const;
 
+const AD_BREAK_AFTER_QUESTIONS = new Set([5, 19, 36]);
+
 function bingLabel(score: number) {
   return BING_LABELS.find(([min, max]) => score >= min && score <= max)?.[2] ?? 'UNCLASSIFIED';
 }
@@ -308,10 +310,10 @@ export default function Home() {
 
   const advance = useCallback(() => {
     const nextIndex = questionIndex + 1;
-    if (questionIndex === 4) {
+    if (AD_BREAK_AFTER_QUESTIONS.has(question.number)) {
       setPhase('ad');
       setFeedback('');
-      track('ad_break_shown', { placement: 1 });
+      track('ad_break_shown', { afterQuestion: question.number });
       return;
     }
     if (nextIndex >= gameQuestions.length) {
@@ -319,7 +321,7 @@ export default function Home() {
       return;
     }
     enterQuestion(nextIndex);
-  }, [enterQuestion, gameOver, gameQuestions.length, questionIndex, track]);
+  }, [enterQuestion, gameOver, gameQuestions.length, question.number, questionIndex, track]);
 
   const correct = (message: string, grantSkip = false) => {
     if (locked) return;
@@ -419,14 +421,14 @@ export default function Home() {
           setBestBing(nextBest);
           localStorage.setItem('tig_best_bing', String(nextBest));
           track('bing_score', { score: finalScore });
-          window.setTimeout(() => enterQuestion(questionIndex + 1), 700);
+          window.setTimeout(advance, 700);
           return 0;
         }
         return value - 1;
       });
     }, 1000);
     return () => window.clearInterval(id);
-  }, [bestBing, enterQuestion, phase, questionIndex, track]);
+  }, [advance, bestBing, phase, track]);
 
   const bing = () => {
     setBingScore((value) => {
@@ -622,7 +624,7 @@ export default function Home() {
             <strong>GOOGLE ADSENSE PLACEMENT</strong>
             <small>728 × 90 RESPONSIVE AD UNIT</small>
           </div>
-          {showAdReturn && <button className="secondary-button ad-return" type="button" onClick={() => enterQuestion(5)}>RETURN TO CHAOS</button>}
+          {showAdReturn && <button className="secondary-button ad-return" type="button" onClick={() => enterQuestion(questionIndex + 1)}>RETURN TO CHAOS</button>}
         </section>
       </main>
     );
