@@ -47,13 +47,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="en">
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1867786717520003"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body style={backgroundStyle}>{children}</body>
     </html>
   );

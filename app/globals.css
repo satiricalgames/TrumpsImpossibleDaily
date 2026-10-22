@@ -48,6 +48,13 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .landing::before { left: -24vw; top: -18vw; }
 .landing::after { right: -24vw; bottom: -18vw; }
 
+.landing {
+  overflow: auto;
+  align-content: start;
+  padding-top: calc(84px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+}
+
 .stars {
   position: absolute;
   top: calc(20px + env(safe-area-inset-top, 0px));
@@ -242,6 +249,31 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   line-height: 1.4;
   margin: 18px 0 0;
   opacity: .72;
+}
+
+.adsense-placement {
+  width: min(728px, 100%);
+  min-height: 116px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding-top: 18px;
+}
+
+.adsense-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #5c6474;
+  font: 700 9px/1 Arial, sans-serif;
+  letter-spacing: .16em;
+  text-align: center;
+}
+
+.start-screen-ad {
+  margin: 56px auto 0;
+  border-top: 2px solid rgba(5, 19, 52, .18);
 }
 
 .ticker,
@@ -695,6 +727,14 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .result-actions .begin-button,
 .result-actions .secondary-button { font-size: clamp(14px, 2.4vw, 20px); }
 .result-actions .text-button { width: 100%; margin: 0; color: white; }
+
+.results-screen-ad {
+  width: min(728px, 94vw);
+  margin-top: 14px;
+  border-top: 2px solid rgba(255, 255, 255, .24);
+}
+
+.results-screen-ad .adsense-label { color: #c3cad8; }
 
 [data-reduced-motion="true"] *,
 [data-reduced-motion="true"] *::before,
