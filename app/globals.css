@@ -493,6 +493,12 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .commercial .secondary-button { margin-top: 8px; font-size: 18px; }
 .ad-countdown { margin: 8px 0 0; font-size: 14px; }
 
+.commercial-clickable { cursor: pointer; }
+.commercial-clickable:focus-visible {
+  outline: 7px solid var(--gold);
+  outline-offset: 7px;
+}
+
 .commercial-kicker {
   margin: 0 0 10px;
   font-size: clamp(10px, 1.8vw, 14px);

@@ -250,12 +250,6 @@ export default function Home() {
     }
   }, [gameQuestions, track]);
 
-  useEffect(() => {
-    if (phase !== 'ad') return;
-    const continueGame = window.setTimeout(() => enterQuestion(questionIndex + 1), 2000);
-    return () => window.clearTimeout(continueGame);
-  }, [enterQuestion, phase, questionIndex]);
-
   const startTestQuestion = () => {
     setTestMode(true);
     setGameMode('full');
@@ -594,7 +588,19 @@ export default function Home() {
     return (
       <main className="game-shell">
         {hud}
-        <section className="commercial">
+        <section
+          className="commercial commercial-clickable"
+          role="button"
+          tabIndex={0}
+          aria-label="Continue to the next question"
+          onClick={() => enterQuestion(questionIndex + 1)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              enterQuestion(questionIndex + 1);
+            }
+          }}
+        >
           <p className="commercial-kicker">A WORD FROM A COMPLETELY FICTIONAL CAR COMPANY</p>
           <div className="computer-car-ad">
             <img
@@ -607,7 +613,7 @@ export default function Home() {
               <p>WHY THINK WHEN YOUR CAR CAN ALMOST DO IT FOR YOU?</p>
             </div>
           </div>
-          <p className="ad-countdown" aria-live="polite">RETURNING TO THE GAME IN 2 SECONDS…</p>
+          <p className="ad-countdown">TAP OR CLICK ANYWHERE TO CONTINUE</p>
         </section>
       </main>
     );
