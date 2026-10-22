@@ -83,7 +83,7 @@ const BING_LABELS = [
   [150, Infinity, 'NOBODY HAS EVER BINGED LIKE THIS'],
 ] as const;
 
-const AD_BREAK_AFTER_QUESTIONS = new Set([5, 19, 36]);
+const AD_BREAK_AFTER_QUESTIONS = new Set([5]);
 
 function bingLabel(score: number) {
   return BING_LABELS.find(([min, max]) => score >= min && score <= max)?.[2] ?? 'UNCLASSIFIED';
@@ -595,12 +595,17 @@ export default function Home() {
       <main className="game-shell">
         {hud}
         <section className="commercial">
-          <p>A WORD FROM OUR CORPORATE SPONSORS</p>
-          <p>THIS MESSAGE DEFINITELY HAD NO EFFECT ON POLICY.</p>
-          <div className="adsense-placeholder" aria-label="Advertisement placeholder">
-            <span>ADVERTISEMENT</span>
-            <strong>GOOGLE ADSENSE PLACEMENT</strong>
-            <small>728 × 90 RESPONSIVE AD UNIT</small>
+          <p className="commercial-kicker">A WORD FROM A COMPLETELY FICTIONAL CAR COMPANY</p>
+          <div className="computer-car-ad">
+            <img
+              src={publicPath('/assets/images/computer-car-commercial.webp')}
+              alt="A ridiculous fictional gold and red luxury car covered in old computers, keyboards, cables and satellite dishes"
+            />
+            <div className="computer-car-copy">
+              <span>INTRODUCING THE EXECU-COMPUTER 47</span>
+              <h1>ITS GOT COMPUTER</h1>
+              <p>WHY THINK WHEN YOUR CAR CAN ALMOST DO IT FOR YOU?</p>
+            </div>
           </div>
           <p className="ad-countdown" aria-live="polite">RETURNING TO THE GAME IN 2 SECONDS…</p>
         </section>
