@@ -13,12 +13,14 @@
 
 # next.js
 /.next/
+/.next-pages/
 /.vinext/
 /out/
 
 # misc
 .DS_Store
 *.pem
+*.tsbuildinfo
 
 # debug
 npm-debug.log*

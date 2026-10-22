@@ -480,7 +480,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   color: white;
   background:
     linear-gradient(rgba(4, 15, 42, .58), rgba(4, 15, 42, .82)),
-    url('/white-house.jpg') center 58% / cover no-repeat;
+    var(--white-house-image) center 58% / cover no-repeat;
   box-shadow: 12px 14px 0 #25b561;
   text-shadow: 2px 2px 0 #000;
 }

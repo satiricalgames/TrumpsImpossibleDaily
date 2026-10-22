@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import questionsData from '@/content/questions.json';
 import executiveMetricsData from '@/content/executive_metrics.json';
+import { publicPath } from '@/lib/public-path';
 
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
 type SourceKind = 'reference' | 'official' | 'internal' | 'original_satire' | 'user_supplied_asset';
@@ -391,8 +392,8 @@ export default function QuestionEditor() {
           <button type="button" onClick={saveLocalFile}>SAVE TO OPEN FILE</button>
           <button type="button" onClick={downloadJson}>DOWNLOAD questions.json</button>
           <button type="button" onClick={copyJson}>COPY JSON</button>
-          <a href="/executive-metrics-editor">OPEN EXECUTIVE METRICS EDITOR</a>
-          <a href="/content-guides/ai-content-guide.md" download>DOWNLOAD AI CONTENT GUIDE</a>
+          <a href={publicPath('/executive-metrics-editor/')}>OPEN EXECUTIVE METRICS EDITOR</a>
+          <a href={publicPath('/content-guides/ai-content-guide.md')} download>DOWNLOAD AI CONTENT GUIDE</a>
           <button type="button" className="editor-quiet" onClick={resetBuiltIn}>RESET TO BUILT-IN</button>
         </div>
       </header>

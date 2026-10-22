@@ -5,6 +5,7 @@ import questionsData from '@/content/questions.json';
 import executiveMetricsData from '@/content/executive_metrics.json';
 import jokesData from '@/content/jokes.json';
 import rotatingOrdersData from '@/content/rotating_orders.json';
+import { publicPath } from '@/lib/public-path';
 
 type Phase = 'landing' | 'question' | 'bing' | 'golf' | 'ad' | 'gameover';
 type QuestionType = 'standard' | 'injunction' | 'hotspot' | 'live' | 'taco' | 'bing' | 'golf' | 'final';
@@ -165,7 +166,7 @@ export default function Home() {
     setHasSave(Boolean(localStorage.getItem('tig_session')));
     const params = new URLSearchParams(window.location.search);
     if (params.has('beat')) setChallenge({ score: Number(params.get('beat') ?? 0), bing: Number(params.get('bing') ?? 0) });
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register(publicPath('/service-worker.js')).catch(() => {});
     const captureInstall = (event: Event) => {
       event.preventDefault();
       installPrompt.current = event as Event & { prompt: () => Promise<void> };
@@ -187,7 +188,7 @@ export default function Home() {
   useEffect(() => {
     const source = FULL_QUESTIONS.find((item) => item.type === 'bing')?.audio;
     if (!source?.onTargetClick) return;
-    const audio = new Audio(source.onTargetClick);
+    const audio = new Audio(publicPath(source.onTargetClick));
     audio.preload = 'auto';
     audio.volume = source.volume ?? 1;
     bingAudio.current = audio;

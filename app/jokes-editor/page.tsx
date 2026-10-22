@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import jokesData from '@/content/jokes.json';
+import { publicPath } from '@/lib/public-path';
 
 type JokesFile = {
   tickerHeadlines: string[];
@@ -144,7 +145,7 @@ export default function JokesEditor() {
         <button type="button" onClick={saveLocalFile}>SAVE TO OPEN FILE</button>
         <button type="button" onClick={download}>DOWNLOAD jokes.json</button>
         <button type="button" onClick={() => void copy()}>COPY JSON</button>
-        <a href="/content-guides/ai-content-guide.md" download>DOWNLOAD AI CONTENT GUIDE</a>
+        <a href={publicPath('/content-guides/ai-content-guide.md')} download>DOWNLOAD AI CONTENT GUIDE</a>
         <button type="button" className="editor-quiet" onClick={reset}>RESET TO BUILT-IN</button>
       </div>
     </header>

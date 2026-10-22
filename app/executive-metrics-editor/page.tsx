@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import metricsData from '@/content/executive_metrics.json';
+import { publicPath } from '@/lib/public-path';
 
 type MetricsFile = {
   activeInjunctions: number;
@@ -79,7 +80,7 @@ export default function ExecutiveMetricsEditor() {
   return <main className="question-editor-shell">
     <header className="editor-header"><div><p>PRIVATE CONTENT TOOL</p><h1>EXECUTIVE METRICS EDITOR</h1><span>Unlinked from the game. These shared values feed questions that select a matching metric key.</span></div><div className="editor-file-actions">
       <input ref={uploadInput} className="editor-hidden-input" type="file" accept=".json,application/json" onChange={(event) => void importFile(event.target.files?.[0])} />
-      <button type="button" onClick={() => uploadInput.current?.click()}>UPLOAD WHOLE executive_metrics.json</button><button type="button" onClick={openLocalFile}>OPEN LOCAL FILE</button><button type="button" onClick={() => void save()}>SAVE TO OPEN FILE</button><button type="button" onClick={download}>DOWNLOAD JSON</button><button type="button" onClick={() => void copy()}>COPY JSON</button><a href="/question-editor">OPEN QUESTION EDITOR</a><a href="/content-guides/ai-content-guide.md" download>DOWNLOAD AI CONTENT GUIDE</a><button type="button" className="editor-quiet" onClick={reset}>RESET TO BUILT-IN</button>
+      <button type="button" onClick={() => uploadInput.current?.click()}>UPLOAD WHOLE executive_metrics.json</button><button type="button" onClick={openLocalFile}>OPEN LOCAL FILE</button><button type="button" onClick={() => void save()}>SAVE TO OPEN FILE</button><button type="button" onClick={download}>DOWNLOAD JSON</button><button type="button" onClick={() => void copy()}>COPY JSON</button><a href={publicPath('/question-editor/')}>OPEN QUESTION EDITOR</a><a href={publicPath('/content-guides/ai-content-guide.md')} download>DOWNLOAD AI CONTENT GUIDE</a><button type="button" className="editor-quiet" onClick={reset}>RESET TO BUILT-IN</button>
     </div></header>
     <div className="editor-status" role="status">{dirty && <strong>UNSAVED DRAFT • </strong>}{status}</div>
     <div className="editor-single-layout"><section className="editor-form-card">

@@ -1,5 +1,7 @@
-const CACHE = 'trumps-impossible-game-v3';
-const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png', '/assets/audio/minigames/bing/bing-bong.mp3'];
+const CACHE = 'trumps-impossible-game-v4';
+const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
+const asset = (path) => `${BASE}${path}`;
+const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png', '/assets/audio/minigames/bing/bing-bong.mp3'].map(asset);
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -18,6 +20,6 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE).then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('/')))
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match(asset('/'))))
   );
 });
