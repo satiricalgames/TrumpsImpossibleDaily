@@ -9,9 +9,21 @@
     "A TECHNICAL ADVISER HAS BEEN FIRED. TRY THE BUTTON AGAIN."
   ],
   "shareTemplates": {
-    "default": "I reached Question {question} before {failureType} changed the rules. BING score: {bingScore}. Beat that.",
-    "early": "TOTAL DISASTER! I only reached Question {question}. BING score: {bingScore}.",
-    "late": "SO CLOSE! I reached Question {question} before {failureType} blocked the transition."
+    "default": [
+      "I reached Question {question} before {failureType} changed the rules. BING score: {bingScore}. Beat that.",
+      "The rules moved again: I made it to Question {question}, then {failureType} stepped in. BING score: {bingScore}. Your turn.",
+      "Official result: Question {question}, defeated by {failureType}, with a tremendous BING score of {bingScore}. Can you do better?"
+    ],
+    "early": [
+      "TOTAL DISASTER! I only reached Question {question}. BING score: {bingScore}.",
+      "EARLY EXIT! Question {question} ended the campaign. BING score: {bingScore}. Surely you can beat this.",
+      "I survived until Question {question}. The BING score was {bingScore}. A very short, very historic run."
+    ],
+    "late": [
+      "SO CLOSE! I reached Question {question} before {failureType} blocked the transition.",
+      "I reached Question {question}, but {failureType} stopped the comeback. So close it required an investigation.",
+      "Deep into the game at Question {question}, {failureType} shut it down. Beat my almost-victory."
+    ]
   },
   "labels": {
     "testMode": "TEST MODE — JUMP DIRECTLY TO",

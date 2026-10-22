@@ -171,9 +171,9 @@ The root is one JSON object with these sections:
   "tickerHeadlines": ["Reusable headline"],
   "recoveryMessages": ["Message shown after an interaction recovers"],
   "shareTemplates": {
-    "default": "Template using {question}, {failureType} and {bingScore}",
-    "early": "Early failure template",
-    "late": "Late failure template"
+    "default": ["Q{question}; {failureType}; score {bingScore}.", "Q{question}; {failureType}; score {bingScore}.", "Q{question}; {failureType}; score {bingScore}."],
+    "early": ["Q{question}; score {bingScore}.", "Q{question}; score {bingScore}.", "Q{question}; score {bingScore}."],
+    "late": ["Q{question}; stopped by {failureType}.", "Q{question}; stopped by {failureType}.", "Q{question}; stopped by {failureType}."]
   },
   "labels": {
     "testMode": "TEST MODE — JUMP DIRECTLY TO",
@@ -186,14 +186,17 @@ The root is one JSON object with these sections:
 Rules:
 
 - Preserve the object keys unless the application code is being changed too.
-- Preserve template tokens exactly: `{question}`, `{failureType}`, and `{bingScore}`.
+- Each share-template category must contain exactly three non-empty variations, giving nine possible result messages in total. The game randomly chooses one variation when the result screen opens.
+- Every `default` variation must preserve `{question}`, `{failureType}`, and `{bingScore}` exactly.
+- Every `early` variation must preserve `{question}` and `{bingScore}` exactly.
+- Every `late` variation must preserve `{question}` and `{failureType}` exactly.
 - Write original parody. Do not copy headlines, comedy routines, campaign material or broadcast wording.
 - If a joke refers to a real event or quotation, research it and give the AI’s accompanying review report a direct verified source location. `jokes.json` currently contains text only and does not have per-line source fields, so do not put citation objects into this file without an engine/schema change.
 - Return the complete file, not only changed fragments.
 
 ### Prompt for an AI jokes task
 
-> Refresh `jokes.json` for Trump’s Impossible Game using the attached AI Content Guide. Preserve every existing key and the template tokens `{question}`, `{failureType}`, and `{bingScore}` exactly. Write original parody and do not copy real headlines or comedy material. Browse and provide a separate review list of direct source locations for any joke based on a real event or quotation, but keep the returned `jokes.json` valid and limited to its existing schema. Return the complete JSON file first, followed by the source review list.
+> Refresh `jokes.json` for Trump’s Impossible Game using the attached AI Content Guide. Preserve every existing key. Supply exactly three variations for each of `shareTemplates.default`, `shareTemplates.early`, and `shareTemplates.late`, preserving the required template tokens in every variation. Write original parody and do not copy real headlines or comedy material. Browse and provide a separate review list of direct source locations for any joke based on a real event or quotation, but keep the returned `jokes.json` valid and limited to its existing schema. Return the complete JSON file first, followed by the source review list.
 
 ## rotating_orders.json
 

@@ -6,7 +6,7 @@ import jokesData from '@/content/jokes.json';
 type JokesFile = {
   tickerHeadlines: string[];
   recoveryMessages: string[];
-  shareTemplates: { default: string; early: string; late: string };
+  shareTemplates: { default: string[]; early: string[]; late: string[] };
   labels: { testMode: string; testButton: string; rotatingPrefix: string };
 };
 
@@ -15,6 +15,11 @@ type LocalFileHandle = { name: string; getFile: () => Promise<File>; createWrita
 
 const clone = (value: JokesFile) => JSON.parse(JSON.stringify(value)) as JokesFile;
 const cleanLines = (lines: string[]) => lines.map((line) => line.trim()).filter(Boolean);
+const templateArray = (value: unknown) => {
+  if (Array.isArray(value)) return value.map((item) => String(item).trim());
+  if (typeof value === 'string') return [value.trim(), value.trim(), value.trim()];
+  return [];
+};
 
 function validate(value: unknown): { value?: JokesFile; errors: string[] } {
   const errors: string[] = [];
@@ -29,9 +34,9 @@ function validate(value: unknown): { value?: JokesFile; errors: string[] } {
     tickerHeadlines: cleanLines(item.tickerHeadlines as string[]),
     recoveryMessages: cleanLines(item.recoveryMessages as string[]),
     shareTemplates: {
-      default: String(item.shareTemplates?.default ?? '').trim(),
-      early: String(item.shareTemplates?.early ?? '').trim(),
-      late: String(item.shareTemplates?.late ?? '').trim(),
+      default: templateArray(item.shareTemplates?.default),
+      early: templateArray(item.shareTemplates?.early),
+      late: templateArray(item.shareTemplates?.late),
     },
     labels: {
       testMode: String(item.labels?.testMode ?? '').trim(),
@@ -41,16 +46,19 @@ function validate(value: unknown): { value?: JokesFile; errors: string[] } {
   };
   if (!normalized.tickerHeadlines.length) errors.push('Add at least one ticker headline.');
   if (!normalized.recoveryMessages.length) errors.push('Add at least one recovery message.');
-  Object.entries(normalized.shareTemplates).forEach(([key, text]) => { if (!text) errors.push(`shareTemplates.${key} cannot be empty.`); });
+  Object.entries(normalized.shareTemplates).forEach(([key, templates]) => {
+    if (templates.length !== 3) errors.push(`shareTemplates.${key} must contain exactly three variations.`);
+    templates.forEach((text, index) => { if (!text) errors.push(`shareTemplates.${key} variation ${index + 1} cannot be empty.`); });
+  });
   Object.entries(normalized.labels).forEach(([key, text]) => { if (!text) errors.push(`labels.${key} cannot be empty.`); });
   const tokens: Record<keyof JokesFile['shareTemplates'], string[]> = {
     default: ['{question}', '{failureType}', '{bingScore}'],
     early: ['{question}', '{bingScore}'],
     late: ['{question}', '{failureType}'],
   };
-  Object.entries(tokens).forEach(([key, required]) => required.forEach((token) => {
-    if (!normalized.shareTemplates[key as keyof JokesFile['shareTemplates']].includes(token)) errors.push(`shareTemplates.${key} must include ${token}.`);
-  }));
+  Object.entries(tokens).forEach(([key, required]) => normalized.shareTemplates[key as keyof JokesFile['shareTemplates']].forEach((text, index) => required.forEach((token) => {
+    if (!text.includes(token)) errors.push(`shareTemplates.${key} variation ${index + 1} must include ${token}.`);
+  })));
   return errors.length ? { errors } : { value: normalized, errors };
 }
 
@@ -120,6 +128,11 @@ export default function JokesEditor() {
   };
   const copy = async () => { const valid = check(); if (!valid) return; await navigator.clipboard.writeText(`${JSON.stringify(valid, null, 2)}\n`); setStatus('Copied the complete jokes JSON to the clipboard.'); };
   const reset = () => { setDraft(clone(builtIn)); fileHandle.current = null; setDirty(false); setErrors([]); setStatus('Reloaded the built-in jokes and interface wording.'); };
+  const updateShareTemplate = (category: keyof JokesFile['shareTemplates'], index: number, value: string) => {
+    const templates = [...draft.shareTemplates[category]];
+    templates[index] = value;
+    update({ ...draft, shareTemplates: { ...draft.shareTemplates, [category]: templates } });
+  };
 
   return <main className="question-editor-shell">
     <header className="editor-header">
@@ -144,9 +157,9 @@ export default function JokesEditor() {
           <LinesField label="Ticker headlines" hint="One headline per line. Blank lines are removed when validated." value={draft.tickerHeadlines} onChange={(tickerHeadlines) => update({ ...draft, tickerHeadlines })} />
           <LinesField label="Recovery messages" hint="One message per line." value={draft.recoveryMessages} onChange={(recoveryMessages) => update({ ...draft, recoveryMessages })} />
           <h3 className="editor-subheading editor-span">SOCIAL SHARE TEMPLATES</h3>
-          <label className="editor-field editor-span"><span>Default result</span><small>Must include {'{question}'}, {'{failureType}'} and {'{bingScore}'}.</small><textarea rows={3} value={draft.shareTemplates.default} onChange={(event) => update({ ...draft, shareTemplates: { ...draft.shareTemplates, default: event.target.value } })} /></label>
-          <label className="editor-field editor-span"><span>Early exit</span><small>Must include {'{question}'} and {'{bingScore}'}.</small><textarea rows={3} value={draft.shareTemplates.early} onChange={(event) => update({ ...draft, shareTemplates: { ...draft.shareTemplates, early: event.target.value } })} /></label>
-          <label className="editor-field editor-span"><span>Late exit</span><small>Must include {'{question}'} and {'{failureType}'}.</small><textarea rows={3} value={draft.shareTemplates.late} onChange={(event) => update({ ...draft, shareTemplates: { ...draft.shareTemplates, late: event.target.value } })} /></label>
+          <div className="editor-share-group editor-span"><h4>DEFAULT RESULT</h4><p>Each variation must include {'{question}'}, {'{failureType}'} and {'{bingScore}'}.</p>{draft.shareTemplates.default.map((template, index) => <label className="editor-field" key={`default-${index}`}><span>Default variation {index + 1}</span><textarea rows={3} value={template} onChange={(event) => updateShareTemplate('default', index, event.target.value)} /></label>)}</div>
+          <div className="editor-share-group editor-span"><h4>EARLY EXIT</h4><p>Each variation must include {'{question}'} and {'{bingScore}'}.</p>{draft.shareTemplates.early.map((template, index) => <label className="editor-field" key={`early-${index}`}><span>Early variation {index + 1}</span><textarea rows={3} value={template} onChange={(event) => updateShareTemplate('early', index, event.target.value)} /></label>)}</div>
+          <div className="editor-share-group editor-span"><h4>LATE EXIT</h4><p>Each variation must include {'{question}'} and {'{failureType}'}.</p>{draft.shareTemplates.late.map((template, index) => <label className="editor-field" key={`late-${index}`}><span>Late variation {index + 1}</span><textarea rows={3} value={template} onChange={(event) => updateShareTemplate('late', index, event.target.value)} /></label>)}</div>
           <h3 className="editor-subheading editor-span">INTERFACE LABELS</h3>
           <label className="editor-field"><span>Test mode label</span><input value={draft.labels.testMode} onChange={(event) => update({ ...draft, labels: { ...draft.labels, testMode: event.target.value } })} /></label>
           <label className="editor-field"><span>Test button label</span><input value={draft.labels.testButton} onChange={(event) => update({ ...draft, labels: { ...draft.labels, testButton: event.target.value } })} /></label>

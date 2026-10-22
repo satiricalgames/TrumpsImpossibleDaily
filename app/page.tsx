@@ -114,6 +114,7 @@ export default function Home() {
   const [challenge, setChallenge] = useState<{ score: number; bing: number } | null>(null);
   const activeInjunctionMetric = readMetric('activeInjunctions');
   const [copied, setCopied] = useState(false);
+  const [shareVariant, setShareVariant] = useState(0);
   const [hasSave, setHasSave] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
   const [showAdReturn, setShowAdReturn] = useState(false);
@@ -279,6 +280,7 @@ export default function Home() {
 
   const gameOver = useCallback((reason: string) => {
     setFailureType(reason);
+    setShareVariant(Math.floor(Math.random() * 3));
     setPhase('gameover');
     track('game_over', { furthestQuestion: furthest, failureType: reason, bingScore });
     tone(85, 0.7, 'sawtooth');
@@ -464,16 +466,17 @@ export default function Home() {
   };
 
   const shareText = useMemo(() => {
-    const template = furthest <= 3
+    const templates = furthest <= 3
       ? jokesData.shareTemplates.early
       : furthest >= 8
         ? jokesData.shareTemplates.late
         : jokesData.shareTemplates.default;
+    const template = templates[shareVariant] ?? templates[0];
     return template
       .replace('{question}', String(furthest))
       .replace('{failureType}', failureType)
       .replace('{bingScore}', String(bingScore));
-  }, [bingScore, failureType, furthest]);
+  }, [bingScore, failureType, furthest, shareVariant]);
 
   const share = async () => {
     const url = `${window.location.origin}${window.location.pathname}?beat=${furthest}&bing=${bingScore}`;

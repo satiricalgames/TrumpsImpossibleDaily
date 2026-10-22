@@ -804,6 +804,9 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .editor-subheading { margin: 12px 0 -2px; padding: 10px 0 6px; color: #123a82; border-bottom: 3px solid #123a82; font: 900 16px "Arial Black", Arial, sans-serif; }
 .editor-notice { display: flex; gap: 12px; margin-top: 18px; padding: 12px 14px; color: #273550; background: #e7f0ff; border: 2px solid #7292c5; line-height: 1.4; }
 .editor-notice strong { flex: 0 0 auto; color: #123a82; font-size: 12px; letter-spacing: .08em; }
+.editor-share-group { display: grid; gap: 12px; padding: 16px; background: #f5f7fb; border: 2px solid #aab4c5; }
+.editor-share-group h4 { margin: 0; color: #123a82; font: 900 15px "Arial Black", Arial, sans-serif; }
+.editor-share-group > p { margin: -7px 0 2px; color: #62708a; font-size: 12px; }
 .editor-file-settings { display: grid; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 4px solid #071b46; }
 .editor-file-settings > strong { color: #a30018; font: 900 11px Arial, sans-serif; letter-spacing: .1em; }
 .editor-file-settings .editor-select-label select { margin-bottom: 0; }
