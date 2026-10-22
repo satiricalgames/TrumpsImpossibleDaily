@@ -119,11 +119,8 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [shareVariant, setShareVariant] = useState(0);
   const [hasSave, setHasSave] = useState(false);
-  const [canInstall, setCanInstall] = useState(false);
-  const [showAdReturn, setShowAdReturn] = useState(false);
   const [testQuestionIndex, setTestQuestionIndex] = useState(3);
   const [testMode, setTestMode] = useState(false);
-  const installPrompt = useRef<Event & { prompt: () => Promise<void> } | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
   const bingAudio = useRef<HTMLAudioElement | null>(null);
   const bingScoreRef = useRef(0);
@@ -169,13 +166,6 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('beat')) setChallenge({ score: Number(params.get('beat') ?? 0), bing: Number(params.get('bing') ?? 0) });
     if ('serviceWorker' in navigator) navigator.serviceWorker.register(publicPath('/service-worker.js')).catch(() => {});
-    const captureInstall = (event: Event) => {
-      event.preventDefault();
-      installPrompt.current = event as Event & { prompt: () => Promise<void> };
-      setCanInstall(true);
-    };
-    window.addEventListener('beforeinstallprompt', captureInstall);
-    return () => window.removeEventListener('beforeinstallprompt', captureInstall);
   }, []);
 
   useEffect(() => {
@@ -213,15 +203,6 @@ export default function Home() {
       bingScore,
     }));
   }, [phase, gameMode, gameQuestions, questionIndex, lives, skips, furthest, bingScore]);
-
-  useEffect(() => {
-    if (phase !== 'ad') {
-      setShowAdReturn(false);
-      return;
-    }
-    const reveal = window.setTimeout(() => setShowAdReturn(true), 2000);
-    return () => window.clearTimeout(reveal);
-  }, [phase]);
 
   const begin = (mode: GameMode) => {
     const sequence = mode === 'short' ? createShortGame() : FULL_QUESTIONS;
@@ -268,6 +249,12 @@ export default function Home() {
       track('question_view', { question: next.number, type: next.type });
     }
   }, [gameQuestions, track]);
+
+  useEffect(() => {
+    if (phase !== 'ad') return;
+    const continueGame = window.setTimeout(() => enterQuestion(questionIndex + 1), 2000);
+    return () => window.clearTimeout(continueGame);
+  }, [enterQuestion, phase, questionIndex]);
 
   const startTestQuestion = () => {
     setTestMode(true);
@@ -495,14 +482,6 @@ export default function Home() {
     window.setTimeout(() => setCopied(false), 1800);
   };
 
-  const install = async () => {
-    if (!installPrompt.current) return;
-    track('install_prompt_shown');
-    await installPrompt.current.prompt();
-    installPrompt.current = null;
-    setCanInstall(false);
-  };
-
   const resume = () => {
     try {
       const saved = JSON.parse(localStorage.getItem('tig_session') ?? '{}') as {
@@ -535,6 +514,7 @@ export default function Home() {
   if (phase === 'landing') {
     return (
       <main className="landing">
+        <div className="ticker" aria-hidden="true"><span>{jokesData.tickerHeadlines[0] ?? executiveMetricsData.tickerHeadline}</span></div>
         <div className="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
         <section className="title-card">
           <div className="top-secret">ABSOLUTELY CLASSIFIED</div>
@@ -569,7 +549,6 @@ export default function Home() {
           </div>
           <p className="fine-print">Independent parody/satire. Not affiliated with any person, campaign, broadcaster or game studio.<br />Contains mild flashing and shaking effects; use Reduced Motion to disable them.</p>
         </section>
-        <div className="ticker" aria-hidden="true"><span>{jokesData.tickerHeadlines[0] ?? executiveMetricsData.tickerHeadline}</span></div>
       </main>
     );
   }
@@ -592,7 +571,6 @@ export default function Home() {
         <div className="result-actions">
           <button className="begin-button" type="button" onClick={share}>{copied ? 'RESULT COPIED!' : 'SHARE THE HUMILIATION'}</button>
           <button className="secondary-button" type="button" onClick={() => setPhase('landing')}>DEMAND AN AUDIT & PLAY AGAIN</button>
-          {canInstall && <button className="text-button" type="button" onClick={install}>INSTALL THE GAME</button>}
         </div>
       </main>
     );
@@ -624,7 +602,7 @@ export default function Home() {
             <strong>GOOGLE ADSENSE PLACEMENT</strong>
             <small>728 × 90 RESPONSIVE AD UNIT</small>
           </div>
-          {showAdReturn && <button className="secondary-button ad-return" type="button" onClick={() => enterQuestion(questionIndex + 1)}>RETURN TO CHAOS</button>}
+          <p className="ad-countdown" aria-live="polite">RETURNING TO THE GAME IN 2 SECONDS…</p>
         </section>
       </main>
     );

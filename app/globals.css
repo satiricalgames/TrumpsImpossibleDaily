@@ -46,7 +46,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 
 .stars {
   position: absolute;
-  top: 20px;
+  top: 68px;
   color: var(--gold);
   font-size: clamp(20px, 4vw, 42px);
   letter-spacing: .35em;
@@ -257,6 +257,13 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 }
 
 .ticker span { padding-left: 100%; animation: ticker 15s linear infinite; }
+.landing .ticker {
+  top: 0;
+  bottom: auto;
+  border-top: 0;
+  border-bottom: 5px solid white;
+  z-index: 2;
+}
 @keyframes ticker { to { transform: translateX(-100%); } }
 
 .game-shell {
@@ -486,6 +493,7 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 }
 .commercial > p { color: white; letter-spacing: .1em; }
 .commercial .secondary-button { margin-top: 8px; font-size: 18px; }
+.ad-countdown { margin: 8px 0 0; font-size: 14px; }
 
 .adsense-placeholder {
   width: min(728px, 100%);
