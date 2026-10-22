@@ -258,6 +258,20 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
   z-index: 1;
   overflow: hidden;
   padding-top: 18px;
+  transition: min-height .2s ease, margin .2s ease, padding .2s ease;
+}
+
+.adsense-pending {
+  background: repeating-linear-gradient(135deg, rgba(5, 19, 52, .025) 0 8px, rgba(5, 19, 52, .055) 8px 9px);
+}
+
+.adsense-unfilled {
+  min-height: 0;
+  height: 0;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  visibility: hidden;
 }
 
 .adsense-label {
