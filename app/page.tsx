@@ -514,7 +514,6 @@ export default function Home() {
   if (phase === 'landing') {
     return (
       <main className="landing">
-        <div className="ticker" aria-hidden="true"><span>{jokesData.tickerHeadlines[0] ?? executiveMetricsData.tickerHeadline}</span></div>
         <div className="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
         <section className="title-card">
           <div className="top-secret">ABSOLUTELY CLASSIFIED</div>
@@ -549,6 +548,7 @@ export default function Home() {
           </div>
           <p className="fine-print">Independent parody/satire. Not affiliated with any person, campaign, broadcaster or game studio.<br />Contains mild flashing and shaking effects; use Reduced Motion to disable them.</p>
         </section>
+        <div className="ticker" aria-hidden="true"><span>{jokesData.tickerHeadlines[0] ?? executiveMetricsData.tickerHeadline}</span></div>
       </main>
     );
   }
