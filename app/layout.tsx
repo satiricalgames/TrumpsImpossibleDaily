@@ -7,9 +7,9 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Trump's Impossible Game",
-  description: 'A deliberately rigged retro political parody game where facts do not necessarily help.',
-  applicationName: "Trump's Impossible Game",
+  title: "Trump's Impossible Daily",
+  description: 'Five daily questions unlock a weekly satirical hidden-Trump investigation.',
+  applicationName: "Trump's Impossible Daily",
   manifest: `${basePath}/manifest.webmanifest`,
   icons: {
     icon: [
@@ -18,17 +18,17 @@ export const metadata: Metadata = {
     ],
     apple: `${basePath}/icon-192.png`,
   },
-  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Impossible Game' },
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Impossible Daily' },
   openGraph: {
-    title: "Trump's Impossible Game",
-    description: "The game is rigged. The answers change. Facts don't help.",
+    title: "Trump's Impossible Daily",
+    description: "Five questions. One hidden Trump. Zero reliable facts.",
     type: 'website',
     images: [{ url: `${basePath}/og.png`, width: 1200, height: 630, alt: "Trump's Impossible Game retro title card" }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Trump's Impossible Game",
-    description: "The game is rigged. The answers change. Facts don't help.",
+    title: "Trump's Impossible Daily",
+    description: "Five questions. One hidden Trump. Zero reliable facts.",
     images: [`${basePath}/og.png`],
   },
 };

@@ -1,7 +1,7 @@
 {
-  "name": "Trump's Impossible Game",
-  "short_name": "Impossible Game",
-  "description": "A deliberately rigged retro political parody game.",
+  "name": "Trump's Impossible Daily",
+  "short_name": "Impossible Daily",
+  "description": "Five daily questions unlock a weekly hidden-Trump investigation.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

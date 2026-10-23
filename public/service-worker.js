@@ -1,7 +1,7 @@
-const CACHE = 'trumps-impossible-game-v4';
+const CACHE = 'trumps-impossible-daily-v1';
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
 const asset = (path) => `${BASE}${path}`;
-const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png', '/assets/audio/minigames/bing/bing-bong.mp3'].map(asset);
+const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/og.png', '/assets/weekly/week-demo.png'].map(asset);
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));

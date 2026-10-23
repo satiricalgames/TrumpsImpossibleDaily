@@ -1,0 +1,23 @@
+{
+  "title": "THE BATHROOM FILES",
+  "kicker": "WEEKLY IMPOSSIBLE INVESTIGATION",
+  "image": "/assets/weekly/week-demo.png",
+  "imageAlt": "An elaborate satirical gold bathroom filled with archive boxes, golf balls, red ties and a hidden Trump caricature.",
+  "target": { "xPct": 55, "yPct": 28, "widthPct": 13, "heightPct": 19 },
+  "dailyQuestionIds": {
+    "monday": ["bowl", "midnight-post", "live-injunctions", "injunction", "taco-trap"],
+    "tuesday": ["midnight-post", "injunction", "bowl", "taco-trap", "live-injunctions"],
+    "wednesday": ["live-injunctions", "bowl", "taco-trap", "midnight-post", "injunction"],
+    "thursday": ["injunction", "live-injunctions", "midnight-post", "bowl", "taco-trap"],
+    "friday": ["taco-trap", "bowl", "injunction", "live-injunctions", "midnight-post"],
+    "saturday": ["bowl", "taco-trap", "midnight-post", "injunction", "live-injunctions"],
+    "sunday": ["live-injunctions", "injunction", "taco-trap", "bowl", "midnight-post"]
+  },
+  "meltdownResponses": [
+    "Trump says the questions were rigged by people who know things.",
+    "Trump has demanded that your score be recounted until he wins.",
+    "Trump called your investigation unfair, illegal and surprisingly accurate.",
+    "Trump says he was never in the picture and has never seen that bathroom.",
+    "Trump has declared total victory over your clearly superior score."
+  ]
+}

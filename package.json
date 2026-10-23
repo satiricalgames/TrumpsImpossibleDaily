@@ -1,5 +1,5 @@
 {
-  "name": "sites-project",
+  "name": "trumps-impossible-daily",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -10,7 +10,7 @@
     "build": "vinext build",
     "build:pages": "next build",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern .next-pages"
   },
   "dependencies": {
     "next": "16.2.6",

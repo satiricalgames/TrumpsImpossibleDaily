@@ -39,7 +39,7 @@ jobs:
         run: pnpm build:pages
         env:
           GITHUB_PAGES: 'true'
-          NEXT_PUBLIC_BASE_PATH: /TrumpsImpossibleGame
+          NEXT_PUBLIC_BASE_PATH: /TrumpsImpossibleDaily
           NEXT_PUBLIC_SITE_URL: https://satiricalgames.github.io
 
       - name: Disable Jekyll processing
