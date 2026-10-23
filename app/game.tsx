@@ -10,6 +10,7 @@ type DailyQuestion = { choices: string[]; correctIndex: number; feedback?: strin
 type Phase = 'home' | 'quiz' | 'reveal';
 const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 const TILE_COUNT = 25;
+const TEST_DAY_OFFSET_KEY = 'trumps-impossible-daily-test-day-offset';
 
 function dateKey(date = new Date()): string {
   return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
@@ -64,8 +65,13 @@ export default function Game() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [guessMode, setGuessMode] = useState(false);
   const [message, setMessage] = useState('');
+  const [testDayOffset, setTestDayOffset] = useState(0);
 
-  const now = new Date();
+  const now = useMemo(() => {
+    const shifted = new Date();
+    shifted.setDate(shifted.getDate() + testDayOffset);
+    return shifted;
+  }, [testDayOffset]);
   const today = dateKey(now);
   const thisWeek = weekKey(now);
   const dayName = DAY_NAMES[now.getDay()];
@@ -81,12 +87,28 @@ export default function Game() {
   const currentQuestion = questions[questionIndex];
 
   useEffect(() => {
-    void loadPlayerState().then((state) => { setPlayer(state); setLoaded(true); });
+    void loadPlayerState().then((state) => {
+      const savedOffset = Number.parseInt(window.localStorage.getItem(TEST_DAY_OFFSET_KEY) ?? '0', 10);
+      if (Number.isFinite(savedOffset) && savedOffset > 0) setTestDayOffset(savedOffset);
+      setPlayer(state); setLoaded(true);
+    });
     void requestPersistentStorage();
     if ('serviceWorker' in navigator) navigator.serviceWorker.register(publicPath('/service-worker.js')).catch(() => {});
   }, []);
 
   const commit = (next: PlayerState) => { setPlayer(next); void savePlayerState(next); };
+  const advanceTestDay = () => {
+    setTestDayOffset((current) => {
+      const next = current + 1;
+      window.localStorage.setItem(TEST_DAY_OFFSET_KEY, String(next));
+      return next;
+    });
+    setPhase('home'); setMessage('');
+  };
+  const resetTestDay = () => {
+    window.localStorage.removeItem(TEST_DAY_OFFSET_KEY);
+    setTestDayOffset(0); setPhase('home'); setMessage('');
+  };
   const startQuiz = () => {
     if (todayResult) { setPhase('reveal'); return; }
     setAnswers([]); setQuestionIndex(0); setSelectedChoice(null); setMessage(''); setPhase('quiz');
@@ -205,6 +227,11 @@ export default function Game() {
       <div className="today-briefing"><div><span>TODAY</span><strong>{now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}</strong></div><div><span>LOCAL RESET</span><strong>MIDNIGHT · {Intl.DateTimeFormat().resolvedOptions().timeZone}</strong></div></div>
       <button type="button" className="begin-button" onClick={startQuiz}>{todayResult ? 'OPEN WEEKLY INVESTIGATION' : 'PLAY TODAY\'S 5 QUESTIONS'}</button>
       {todayResult && <p className="completed-today">TODAY COMPLETE · {todayResult.answers.map((answer) => answer ? '🟩' : '🟥').join('')} · {todayResult.score}/5</p>}
+      <div className="test-clock" aria-label="Daily game testing controls">
+        <div><span>TESTING CLOCK</span><strong>{testDayOffset ? `+${testDayOffset} DAY${testDayOffset === 1 ? '' : 'S'}` : 'REAL TODAY'}</strong></div>
+        <button type="button" onClick={advanceTestDay}>ADVANCE ONE DAY</button>
+        {testDayOffset > 0 && <button type="button" className="test-reset" onClick={resetTestDay}>RESET TO REAL TODAY</button>}
+      </div>
       <div className="home-stats"><div><strong>{player.currentStreak}</strong><span>CURRENT STREAK</span></div><div><strong>{player.bestStreak}</strong><span>BEST STREAK</span></div><div><strong>{player.perfectDays}</strong><span>PERFECT DAYS</span></div><div><strong>{week.revealedTiles.length}/25</strong><span>TILES OPEN</span></div></div>
       <p className="fine-print">Independent parody/satire. Progress is stored privately on this device. No account required.</p>
     </section>
