@@ -11,6 +11,7 @@ type Phase = 'home' | 'quiz' | 'reveal';
 const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 const TILE_COUNT = 25;
 const TEST_DAY_OFFSET_KEY = 'trumps-impossible-daily-test-day-offset';
+const MAX_TEST_DAY_OFFSET = 7;
 
 function dateKey(date = new Date()): string {
   return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
@@ -89,7 +90,7 @@ export default function Game() {
   useEffect(() => {
     void loadPlayerState().then((state) => {
       const savedOffset = Number.parseInt(window.localStorage.getItem(TEST_DAY_OFFSET_KEY) ?? '0', 10);
-      if (Number.isFinite(savedOffset) && savedOffset > 0) setTestDayOffset(savedOffset);
+      if (Number.isFinite(savedOffset) && savedOffset > 0) setTestDayOffset(Math.min(savedOffset, MAX_TEST_DAY_OFFSET));
       setPlayer(state); setLoaded(true);
     });
     void requestPersistentStorage();
@@ -99,7 +100,7 @@ export default function Game() {
   const commit = (next: PlayerState) => { setPlayer(next); void savePlayerState(next); };
   const advanceTestDay = () => {
     setTestDayOffset((current) => {
-      const next = current + 1;
+      const next = Math.min(current + 1, MAX_TEST_DAY_OFFSET);
       window.localStorage.setItem(TEST_DAY_OFFSET_KEY, String(next));
       return next;
     });
@@ -229,10 +230,11 @@ export default function Game() {
       {todayResult && <p className="completed-today">TODAY COMPLETE · {todayResult.answers.map((answer) => answer ? '🟩' : '🟥').join('')} · {todayResult.score}/5</p>}
       <div className="test-clock" aria-label="Daily game testing controls">
         <div><span>TESTING CLOCK</span><strong>{testDayOffset ? `+${testDayOffset} DAY${testDayOffset === 1 ? '' : 'S'}` : 'REAL TODAY'}</strong></div>
-        <button type="button" onClick={advanceTestDay}>ADVANCE ONE DAY</button>
+        <button type="button" disabled={testDayOffset >= MAX_TEST_DAY_OFFSET} onClick={advanceTestDay}>{testDayOffset >= MAX_TEST_DAY_OFFSET ? '7-DAY LIMIT REACHED' : 'ADVANCE ONE DAY'}</button>
         {testDayOffset > 0 && <button type="button" className="test-reset" onClick={resetTestDay}>RESET TO REAL TODAY</button>}
       </div>
       <div className="home-stats"><div><strong>{player.currentStreak}</strong><span>CURRENT STREAK</span></div><div><strong>{player.bestStreak}</strong><span>BEST STREAK</span></div><div><strong>{player.perfectDays}</strong><span>PERFECT DAYS</span></div><div><strong>{week.revealedTiles.length}/25</strong><span>TILES OPEN</span></div></div>
+      <p className="streak-help">Complete the daily quiz on consecutive days to extend your streak.</p>
       <p className="fine-print">Independent parody/satire. Progress is stored privately on this device. No account required.</p>
     </section>
     <div className="ticker" aria-hidden="true"><span>BREAKING: LOCAL PLAYER CLAIMS FIVE QUESTIONS WERE ENOUGH · NEW PICTURE REMAINS HEAVILY CLASSIFIED</span></div>

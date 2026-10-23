@@ -1010,10 +1010,12 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .test-clock span { font: 800 9px Arial, sans-serif; letter-spacing: .12em; }
 .test-clock strong { color: var(--red); font: 900 15px Arial, sans-serif; }
 .test-clock button { padding: 10px 13px; color: white; background: var(--ink); border: 0; font: 900 11px Arial, sans-serif; letter-spacing: .04em; cursor: pointer; }
+.test-clock button:disabled { color: #717782; background: #d7d8d5; cursor: not-allowed; }
 .test-clock .test-reset { color: var(--ink); background: white; border: 2px solid var(--ink); }
 .home-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 26px; }
 .home-stats div { display: grid; align-content: center; min-height: 76px; padding: 8px; background: #fff; border: 3px solid var(--ink); }
 .home-stats strong { display: block; color: var(--red); font-size: clamp(18px, 4vw, 28px); }
+.streak-help { margin: 10px 4px 0; color: #4b5260; font: 700 11px/1.4 Arial, sans-serif; }
 
 .daily-topbar {
   min-height: 62px;
