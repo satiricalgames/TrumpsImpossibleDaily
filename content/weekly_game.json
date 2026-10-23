@@ -3,15 +3,62 @@
   "kicker": "WEEKLY IMPOSSIBLE INVESTIGATION",
   "image": "/assets/weekly/week-demo.png",
   "imageAlt": "An elaborate satirical gold bathroom filled with archive boxes, golf balls, red ties and a hidden Trump caricature.",
-  "target": { "xPct": 55, "yPct": 28, "widthPct": 13, "heightPct": 19 },
+  "target": {
+    "xPct": 55,
+    "yPct": 28,
+    "widthPct": 13,
+    "heightPct": 19
+  },
   "dailyQuestionIds": {
-    "monday": ["bowl", "midnight-post", "live-injunctions", "injunction", "taco-trap"],
-    "tuesday": ["midnight-post", "injunction", "bowl", "taco-trap", "live-injunctions"],
-    "wednesday": ["live-injunctions", "bowl", "taco-trap", "midnight-post", "injunction"],
-    "thursday": ["injunction", "live-injunctions", "midnight-post", "bowl", "taco-trap"],
-    "friday": ["taco-trap", "bowl", "injunction", "live-injunctions", "midnight-post"],
-    "saturday": ["bowl", "taco-trap", "midnight-post", "injunction", "live-injunctions"],
-    "sunday": ["live-injunctions", "injunction", "taco-trap", "bowl", "midnight-post"]
+    "monday": [
+      "gulf-rebrand",
+      "golden-statue-ai",
+      "real-worker-pay-since-inauguration",
+      "final-injunction",
+      "penguin-trade-war"
+    ],
+    "tuesday": [
+      "white-house-car-lot",
+      "january-pardon",
+      "gas-price-since-inauguration",
+      "canada-51",
+      "tariff-everything"
+    ],
+    "wednesday": [
+      "un-teleprompter",
+      "pope-filter",
+      "chainsaw-budget",
+      "sophie-attendance",
+      "hamberder-diplomacy"
+    ],
+    "thursday": [
+      "paper-towel-olympics",
+      "midnight-post",
+      "trump-love-language",
+      "fifa-peace-prize",
+      "meme-coin-dinner"
+    ],
+    "friday": [
+      "space-force",
+      "injunction",
+      "springfield-fact-check",
+      "dum-spelling",
+      "hoarse-voice-trade"
+    ],
+    "saturday": [
+      "taco-trap",
+      "king-post",
+      "golden-sneakers",
+      "tariff-court-rewrites",
+      "ymca-gentle-wave"
+    ],
+    "sunday": [
+      "taco-revenge",
+      "tariff-pause-button",
+      "windmill-doctor",
+      "hurricane-sharpie",
+      "forest-rake"
+    ]
   },
   "meltdownResponses": [
     "Trump says the questions were rigged by people who know things.",
@@ -19,5 +66,6 @@
     "Trump called your investigation unfair, illegal and surprisingly accurate.",
     "Trump says he was never in the picture and has never seen that bathroom.",
     "Trump has declared total victory over your clearly superior score."
-  ]
+  ],
+  "weekStart": "2026-10-19"
 }

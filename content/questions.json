@@ -3,10 +3,22 @@
     "id": "bowl",
     "number": 1,
     "type": "standard",
+    "enabled": true,
     "kicker": "EXECUTIVE INTELLIGENCE TEST",
     "prompt": "What is the best kind of bowl?",
-    "choices": ["Mixing bowl", "Super Bowl", "A taco bowl from Trump Tower Grill", "Singing bowl"],
+    "choices": [
+      "Mixing bowl",
+      "Super Bowl",
+      "A taco bowl from Trump Tower Grill",
+      "Singing bowl"
+    ],
     "correctIndex": 2,
+    "feedback": [
+      "TOO PRACTICAL. VERY SUSPICIOUS.",
+      "SPORTS ARE TEMPORARILY CANCELLED.",
+      "TREMENDOUS BOWL SELECTION.",
+      "THIS IS NOT A WELLNESS RETREAT."
+    ],
     "sources": [
       {
         "kind": "reference",
@@ -16,18 +28,28 @@
         "note": "Background for the Trump Tower taco-bowl reference.",
         "accessedOn": "2026-10-19"
       }
-    ],
-    "feedback": ["TOO PRACTICAL. VERY SUSPICIOUS.", "SPORTS ARE TEMPORARILY CANCELLED.", "TREMENDOUS BOWL SELECTION.", "THIS IS NOT A WELLNESS RETREAT."]
+    ]
   },
   {
     "id": "midnight-post",
     "number": 2,
     "type": "standard",
+    "enabled": true,
     "kicker": "LATE-NIGHT POLICY OFFICE",
     "prompt": "What follows a completely unprompted midnight post in all caps?",
-    "choices": ["Silence", "A press briefing", "COVFEFE", "Responsible reflection"],
+    "choices": [
+      "Silence",
+      "A press briefing",
+      "COVFEFE",
+      "Responsible reflection"
+    ],
     "correctIndex": 2,
-    "grantSkip": true,
+    "feedback": [
+      "SILENCE HAS BEEN FIRED.",
+      "THE BRIEFING WAS CANCELLED BY THE BRIEFING.",
+      "CORRECT. YOU FOUND A GREEN SKIP!",
+      "RESPONSIBILITY WAS NOT ON THE BALLOT."
+    ],
     "sources": [
       {
         "kind": "reference",
@@ -45,18 +67,28 @@
         "note": "Official archival context for Trump-administration social-media records.",
         "accessedOn": "2026-10-19"
       }
-    ],
-    "feedback": ["SILENCE HAS BEEN FIRED.", "THE BRIEFING WAS CANCELLED BY THE BRIEFING.", "CORRECT. YOU FOUND A GREEN SKIP!", "RESPONSIBILITY WAS NOT ON THE BALLOT."]
+    ]
   },
   {
     "id": "injunction",
     "number": 3,
-    "type": "injunction",
+    "type": "standard",
+    "enabled": true,
     "kicker": "THE COURT MAY OBJECT",
     "prompt": "Which order should be signed immediately?",
-    "choices": ["The sensible one", "The loud one", "The tiny-print one", "Sign all of them"],
-    "rewrittenChoices": ["Appeal to snack court", "Declare the gavel unconstitutional", "Ask the options to recuse themselves", "Sign absolutely nothing"],
+    "choices": [
+      "The sensible one",
+      "The loud one",
+      "The tiny-print one",
+      "Sign all of them"
+    ],
     "correctIndex": 1,
+    "feedback": [
+      "NATIONWIDE INJUNCTION!",
+      "THE GAVEL HAS BEEN OVERRULED BY A LOUDER GAVEL.",
+      "THE FINE PRINT JUST GOT FINER.",
+      "FOUR SIGNATURES. ZERO PROGRESS."
+    ],
     "sources": [
       {
         "kind": "official",
@@ -66,44 +98,28 @@
         "note": "Legal background for the nationwide-injunction mechanic; the answer choices remain original satire.",
         "accessedOn": "2026-10-19"
       }
-    ],
-    "feedback": ["NATIONWIDE INJUNCTION!", "THE GAVEL HAS BEEN OVERRULED BY A LOUDER GAVEL.", "THE FINE PRINT JUST GOT FINER.", "FOUR SIGNATURES. ZERO PROGRESS."]
-  },
-  {
-    "id": "pixel-hotspot",
-    "number": 4,
-    "type": "hotspot",
-    "kicker": "THE POLL IS DEFINITELY NORMAL",
-    "prompt": "Find the one tiny thing that is not rigged.",
-    "timerSeconds": 15,
-    "hotspot": {
-      "xPct": 83,
-      "yPct": 14,
-      "widthPct": 8,
-      "heightPct": 10
-    },
-    "missRules": {
-      "clicksBeforeLifeLoss": 3,
-      "maxLivesLost": 1
-    },
-    "sources": [
-      {
-        "kind": "original_satire",
-        "title": "Original rigged-poll hotspot joke",
-        "note": "Original game mechanic and parody wording; it makes no external factual claim."
-      }
-    ],
-    "feedback": ["MISS. THE PIXELS ARE UNDER INVESTIGATION."]
+    ]
   },
   {
     "id": "live-injunctions",
-    "number": 5,
+    "number": 4,
     "type": "live",
-    "metricKey": "activeInjunctions",
+    "enabled": true,
     "kicker": "LIVE EXECUTIVE METRICS",
     "prompt": "How many active injunctions are on the totally real scoreboard?",
-    "choices": ["24", "27", "31", "They have lost count"],
+    "choices": [
+      "24",
+      "27",
+      "31",
+      "They have lost count"
+    ],
     "correctIndex": 1,
+    "feedback": [
+      "STALE DATA. SAD!",
+      "CORRECT AT THE TIME OF BROADCAST.",
+      "THAT NUMBER WAS TRUE NEXT WEEK.",
+      "COUNTING HAS BEEN ENJOINED."
+    ],
     "sources": [
       {
         "kind": "internal",
@@ -119,92 +135,1662 @@
         "note": "General background only; it does not validate the game's configurable number.",
         "accessedOn": "2026-10-19"
       }
-    ],
-    "feedback": ["STALE DATA. SAD!", "CORRECT AT THE TIME OF BROADCAST.", "THAT NUMBER WAS TRUE NEXT WEEK.", "COUNTING HAS BEEN ENJOINED."]
+    ]
   },
   {
     "id": "taco-trap",
-    "number": 6,
-    "type": "taco",
+    "number": 5,
+    "type": "standard",
+    "enabled": true,
     "kicker": "CULINARY FOREIGN POLICY",
     "prompt": "Choose the safest lunch.",
-    "choices": ["A sealed briefing sandwich", "The suspicious taco", "A bowl with no taco in it", "Executive pudding"],
+    "choices": [
+      "A sealed briefing sandwich",
+      "The suspicious taco",
+      "A bowl with no taco in it",
+      "Executive pudding"
+    ],
     "correctIndex": 2,
-    "trapIndex": 1,
-    "backtrackBy": 5,
+    "feedback": [
+      "THE SANDWICH LEAKED.",
+      "TACO TRAP! FIVE QUESTIONS BACK!",
+      "SAFE, BORING, AND SOMEHOW CORRECT.",
+      "THE PUDDING HAS CLAIMED PRIVILEGE."
+    ],
     "sources": [
       {
         "kind": "original_satire",
         "title": "Original taco-trap joke",
         "note": "Original game mechanic; no external factual claim is presented."
       }
-    ],
-    "feedback": ["THE SANDWICH LEAKED.", "TACO TRAP! FIVE QUESTIONS BACK!", "SAFE, BORING, AND SOMEHOW CORRECT.", "THE PUDDING HAS CLAIMED PRIVILEGE."]
+    ]
   },
   {
-    "id": "bing-o-meter",
-    "number": 7,
-    "type": "bing",
-    "kicker": "SIGNATURE VIRAL MINI-GAME",
-    "prompt": "MAKE HIM SAY BING!",
-    "timerSeconds": 20,
-    "audio": {
-      "onTargetClick": "/assets/audio/minigames/bing/bing-bong.mp3",
-      "volume": 1
-    },
-    "sources": [
-      {
-        "kind": "user_supplied_asset",
-        "title": "User-supplied Bing Bong sound effect",
-        "path": "public/assets/audio/minigames/bing/bing-bong.mp3",
-        "note": "Audio supplied by the project owner; retain the original acquisition/licensing record separately."
-      },
-      {
-        "kind": "original_satire",
-        "title": "Original BING-O-METER mini-game",
-        "note": "The scoring mechanic and game wording are original satire."
-      }
+    "id": "gulf-rebrand",
+    "number": 6,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "GEOGRAPHY BY EXECUTIVE ORDER",
+    "prompt": "The Gulf of Mexico has entered the branding department. What does the 2025 executive order call it?",
+    "choices": [
+      "The Gulf of Tremendous",
+      "The Gulf of America",
+      "The Mar-a-Lagoon",
+      "Gulf 2: The Sequel"
     ],
-    "feedback": []
-  },
-  {
-    "id": "golf",
-    "number": 8,
-    "type": "golf",
-    "kicker": "PRESIDENTIAL FITNESS TEST",
-    "prompt": "Hit the fairway. (The trees are absolutely not the real target.)",
-    "golfTargetPower": 70,
-    "sources": [
-      {
-        "kind": "reference",
-        "title": "Our Properties",
-        "publisher": "Trump Golf",
-        "url": "https://www.trumpgolf.com/Our-Courses",
-        "note": "Background for the golf theme; the fairway reversal is original satire.",
-        "accessedOn": "2026-10-19"
-      }
+    "correctIndex": 1,
+    "feedback": [
+      "NO. THAT NAME TESTED TOO HONESTLY.",
+      "CORRECT. GEOGRAPHY HAS BEEN GIVEN A NEW LOGO.",
+      "THE TRADEMARK APPLICATION IS UNDER REVIEW.",
+      "THE SEQUEL HAS TOO MUCH PLOT."
     ],
-    "feedback": []
-  },
-  {
-    "id": "finale",
-    "number": 47,
-    "type": "final",
-    "kicker": "THE IMPOSSIBLE FINALE",
-    "prompt": "How do you want to handle the transition of power?",
-    "choices": ["Concede gracefully and walk away", "Demand a recount in all 50 states", "Post a 14-part thread", "Declare total victory anyway"],
-    "correctIndex": -1,
     "sources": [
       {
         "kind": "official",
-        "title": "Presidential Succession under the Twentieth Amendment",
-        "publisher": "Constitution Annotated, Congress.gov",
-        "url": "https://constitution.congress.gov/browse/essay/amdt20-S3-1/ALDE_00000043/",
-        "note": "Constitutional background for the transition-of-power theme; the impossible answers are original satire.",
+        "title": "Restoring Names That Honor American Greatness",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/01/restoring-names-that-honor-american-greatness/",
+        "note": "January 2025 order directed federal use of the name Gulf of America and restoration of Mount McKinley.",
         "accessedOn": "2026-10-19"
       }
+    ]
+  },
+  {
+    "id": "mountain-makeover",
+    "number": 7,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "MOUNTAINS NEED BRAND MANAGERS",
+    "prompt": "While renaming the gulf, what name did the administration restore to North America’s highest peak?",
+    "choices": [
+      "Mount McKinley",
+      "Mount Trumpmore",
+      "Mount McMountainface",
+      "Mount Executive Privilege"
     ],
-    "feedback": ["FAKE NEWS!", "STOP THE COUNT! WAIT — KEEP COUNTING!", "PERMANENT INJUNCTION!", "TOTAL VICTORY!*"]
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE MOUNTAIN WAS GIVEN ITS OLD NAME BACK.",
+      "THE GIFT SHOP WAS ALREADY PRINTING THE MUGS.",
+      "YOU HAVE BEEN HIRED AS A GEOGRAPHY CONSULTANT.",
+      "THE MOUNTAIN HAS RETAINED COUNSEL."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Restoring Names That Honor American Greatness",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/01/restoring-names-that-honor-american-greatness/",
+        "note": "January 2025 order directed federal use of the name Gulf of America and restoration of Mount McKinley.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "penguin-trade-war",
+    "number": 8,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE WAR ON PENGUIN IMPORTS",
+    "prompt": "Which mostly uninhabited Australian islands ended up on the tariff list?",
+    "choices": [
+      "Love Island",
+      "Heard and McDonald Islands",
+      "The Island of Misfit Toys",
+      "The Island of Missing Receipts"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "WE ARE NOT PUTTING REALITY TV ON THE CUSTOMS FORM.",
+      "CORRECT. THE PENGUINS HAVE REQUESTED A TRADE NEGOTIATOR.",
+      "THE ELVES HAVE AN EXEMPTION.",
+      "THAT IS NOT THIS QUESTION."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "‘Nowhere on Earth is safe’: Trump imposes tariffs on uninhabited islands near Antarctica",
+        "publisher": "The Guardian",
+        "url": "https://www.theguardian.com/us-news/2025/apr/03/donald-trump-tariffs-antarctica-uninhabited-heard-mcdonald-islands",
+        "note": "Reports tariff coverage of Australian Heard and McDonald Islands, with no permanent human population and penguins.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "tariff-everything",
+    "number": 9,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "ECONOMICS FOR VERY STABLE GENIUSES",
+    "prompt": "On Liberation Day 2025, what baseline additional tariff was announced for many imports?",
+    "choices": [
+      "Zero. Tariffs are just a feeling.",
+      "100%, plus tip",
+      "10%",
+      "One gold-plated dollar per penguin"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "YOUR APPLICATION TO BE ECONOMIC ADVISER HAS BEEN DECLINED.",
+      "THE CALCULATOR HAS LEFT THE COUNTRY.",
+      "CORRECT. A 10% FEE FOR ENTERING THE ROOM.",
+      "THE PENGUINS HAVE ALREADY LAWYERED UP."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Regulating Imports with a Reciprocal Tariff to Rectify Trade Practices that Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/04/regulating-imports-with-a-reciprocal-tariff-to-rectify-trade-practices-that-contribute-to-large-and-persistent-annual-united-states-goods-trade-deficits/",
+        "note": "April 2025 reciprocal tariff order imposed an additional 10% baseline tariff on covered imports, with exceptions and higher rates for some countries.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "tariff-court-rewrites",
+    "number": 10,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE INTERNATIONAL TRADE COURT OF VIBES",
+    "prompt": "You announced a tariff. Choose how to explain it to the public. (Your first choice will be overruled.)",
+    "choices": [
+      "It will lower prices immediately",
+      "Foreign exporters always pay it",
+      "The spreadsheet is classified",
+      "Ask an actual economist"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "OVERRULED. ONE CALCULATOR IS CRYING.",
+      "THE COURT RULES THAT MATH IS NOT A FOREIGN PRODUCT.",
+      "CORRECT. THE QUESTION IS PAUSED FOR 90 DAYS.",
+      "THE PENGUINS HAVE DECLARED RETALIATORY FISH DUTIES."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Modifying Reciprocal Tariff Rates to Reflect Trading Partner Retaliation and Alignment",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/04/modifying-reciprocal-tariff-rates-to-reflect-trading-partner-retaliation-and-alignment/",
+        "note": "April 9, 2025 modification temporarily suspended certain country-specific higher rates for 90 days while maintaining a 10% rate for many trading partners.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "white-house-car-lot",
+    "number": 11,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE OVAL OFFICE MOTOR SHOW",
+    "prompt": "What vehicle did Trump proudly inspect on the White House driveway in March 2025?",
+    "choices": [
+      "A shiny red Tesla",
+      "A presidential golf cart with a spoiler",
+      "A gold-plated Cybertruck submarine",
+      "A Prius running on compliments"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE WHITE HOUSE IS NOW A CAR FORECOURT.",
+      "THE SECRET SERVICE REQUESTS A ROLL CAGE.",
+      "THAT IS THE 2027 MODEL.",
+      "COMPLIMENTS ARE NO LONGER TAX-DEDUCTIBLE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump selects a new Tesla on White House driveway to show support for Elon Musk",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-musk-tesla-9a43c57a0591a4c7ed8d3f1b2c7ef8d9",
+        "note": "Reports Trump displaying and choosing a red Tesla at the White House in March 2025.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "chainsaw-budget",
+    "number": 12,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "DEPARTMENT OF EXTREME GARDENING",
+    "prompt": "What did Elon Musk brandish onstage at CPAC while promoting government cuts?",
+    "choices": [
+      "A spreadsheet signed by accountants",
+      "A tiny ceremonial teaspoon",
+      "A chainsaw",
+      "A copy of the procurement manual"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "TOO MANY ROWS. IMMEDIATE REDUNDANCY.",
+      "NOT ENOUGH DRAMA PER DOLLAR.",
+      "CORRECT. EVEN THE BUDGET GOT NERVOUS.",
+      "THE MANUAL HAS BEEN SHREDDED FOR SAVINGS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Musk waves a chainsaw and charms conservatives talking up Trump’s cost-cutting efforts",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/musk-chainsaw-trump-doge-6568e9e0cfc42ad6cdcfd58a409eb312",
+        "note": "Reports Musk brandishing a chainsaw received from Argentina’s president at CPAC in February 2025.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "doge-exit-interview",
+    "number": 13,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE DEPARTMENT OF GOODBYE",
+    "prompt": "In May 2025, who left his role in Trump’s government-efficiency operation?",
+    "choices": [
+      "The office ficus",
+      "Elon Musk",
+      "The government itself",
+      "A golden retriever named DOGE"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE FICUS WAS THE ONLY EMPLOYEE UNDER BUDGET.",
+      "CORRECT. THE EXIT INTERVIEW WAS 280 CHARACTERS.",
+      "SOME DEPARTMENTS REPORTED NO DIFFERENCE.",
+      "THE RETRIEVER GOT A BETTER SEVERANCE PACKAGE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Elon Musk leaves Trump administration",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/elon-musk-trump-doge-322f6735a26ee6a8ad6a334176f94dd5",
+        "note": "Covers Musk’s exit from his White House government-efficiency role in May 2025.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "pope-filter",
+    "number": 14,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "DIVINE IMAGE CONSULTANCY",
+    "prompt": "Which unexpected uniform did Trump wear in a May 2025 AI-generated image shared online?",
+    "choices": [
+      "Pope vestments",
+      "The sorting hat from Hogwarts",
+      "A NASA spacesuit made of steak",
+      "An inflatable Supreme Court gavel"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE VATICAN DID NOT ORDER THIS REBRAND.",
+      "THE SORTING HAT ASKED FOR A TRANSFER.",
+      "SPACE FORCE HAS DENIED YOUR APPLICATION.",
+      "IT HAS BEEN ENJOINED BY REALITY."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Donald Trump posts AI Image of himself as pope, sparks criticism",
+        "publisher": "Global News",
+        "url": "https://globalnews.ca/news/11162879/trump-draws-criticism-ai-image-of-himself-as-the-pope-ahead-papal-conclave/",
+        "note": "Reports that an AI-generated image depicting Trump as a pope was posted on Trump’s social media in May 2025.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "fifa-peace-prize",
+    "number": 15,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "FOOTBALL SOLVES DIPLOMACY",
+    "prompt": "Which organisation presented Trump with its inaugural peace prize in December 2025?",
+    "choices": [
+      "The Nobel Committee",
+      "The United Nations Department of Trophies",
+      "FIFA",
+      "The League of Extraordinary Golfers"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "NO. THAT IS A COMPLETELY DIFFERENT PRIZE.",
+      "THE DEPARTMENT DOES NOT EXIST. YET.",
+      "CORRECT. THE WORLD CUP NOW HAS AN EXTRA-TIME PEACE DIVISION.",
+      "THEY ARE STILL ON THE 18TH HOLE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "FIFA gives Trump a peace prize in a departure from its traditional focus on sport",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-world-cup-fifa-peace-prize-e14f95b8adaa197c869cad407b6ef604",
+        "note": "Reports that FIFA awarded Trump its inaugural peace prize at the December 2025 World Cup draw.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "bitcoin-fort-knox",
+    "number": 16,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "NATIONAL CRYPTO TREASURE CHEST",
+    "prompt": "What kind of strategic reserve did Trump establish by order in March 2025?",
+    "choices": [
+      "Strategic Beanie Baby Reserve",
+      "Strategic Bitcoin Reserve",
+      "National Emergency Vibes Fund",
+      "Federal Golden Sneaker Depository"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE BEANIE BABIES ARE IN A BEAR MARKET.",
+      "CORRECT. THE PIGGY BANK NOW HAS A BLOCKCHAIN.",
+      "VIBES CANNOT BE AUDITED.",
+      "THAT IS A SEPARATE TREASURY PROJECT."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Establishment of the Strategic Bitcoin Reserve and United States Digital Asset Stockpile",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/03/establishment-of-the-strategic-bitcoin-reserve-and-united-states-digital-asset-stockpile/",
+        "note": "March 2025 order established a federal strategic Bitcoin reserve and digital asset stockpile.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "gold-card",
+    "number": 17,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "IMMIGRATION: PREMIUM TIER",
+    "prompt": "What was the individual gift amount specified in the September 2025 Gold Card order?",
+    "choices": [
+      "$9.99 and a free trial",
+      "$1 million",
+      "Three flattering adjectives",
+      "A lifetime supply of steak"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THAT IS THE BASIC SUBSCRIPTION.",
+      "CORRECT. CITIZENSHIP ADJACENT, PLATINUM PRICING.",
+      "THE ADJECTIVES MUST BE TREMENDOUS.",
+      "CUSTOMS HAS REJECTED THE FREEZER."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "The Gold Card",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/09/the-gold-card/",
+        "note": "September 2025 executive order established a Gold Card immigration-related program associated with gifts of $1 million by an individual or $2 million by an entity.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "canada-51",
+    "number": 18,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "INTERNATIONAL REAL ESTATE",
+    "prompt": "What did Trump repeatedly suggest Canada should become?",
+    "choices": [
+      "A very large parking lot",
+      "The 51st U.S. state",
+      "A branch of Mar-a-Lago",
+      "A tax-free maple-syrup vending machine"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THAT WOULD REQUIRE TOO MUCH SNOW CLEARANCE.",
+      "CORRECT. CANADA HAS DECLINED THE FRIEND REQUEST.",
+      "THE MEMBERSHIP DUES WOULD BE ASTRONOMICAL.",
+      "SOMEONE WILL STILL TRY TO TARIFF IT."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump’s comment about Canada becoming US state is not funny anymore, Canadian leaders say",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/131dcff58a8f56116765f160d9f35460",
+        "note": "Reports Trump’s repeated proposals or suggestions that Canada become the 51st U.S. state.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "greenland-checkout",
+    "number": 19,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "CARTOGRAPHIC SHOPPING SPREE",
+    "prompt": "Which autonomous territory has repeatedly featured on Trump’s acquisition wish list?",
+    "choices": [
+      "Wakanda",
+      "Atlantis",
+      "Greenland",
+      "The restaurant next to the White House"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "MARVEL LEGAL HAS SENT A LETTER.",
+      "THE SHIPPING ADDRESS CANNOT BE VERIFIED.",
+      "CORRECT. THE SHOPPING CART SAYS: NOT FOR SALE.",
+      "THAT IS AN ACTUAL BUSINESS MEETING."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump said he won’t use force to take Greenland, but Greenlanders remain on edge: AP Explains",
+        "publisher": "Associated Press",
+        "url": "https://www.ap.org/news-highlights/spotlights/2026/trump-said-he-wont-use-force-to-take-greenland-but-greenlanders-remain-on-edge-ap-explains/",
+        "note": "January 2026 reporting on Trump’s efforts to gain control of Greenland and Greenlandic opposition.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "signal-who-invited-him",
+    "number": 20,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "TOP SECRET GROUP CHAT",
+    "prompt": "What uninvited guest ended up in a Signal chat about planned U.S. strikes in 2025?",
+    "choices": [
+      "A journalist",
+      "The White House cat",
+      "A pizza delivery driver",
+      "An autocorrect bot called COVFEFE"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE GROUP CHAT NEEDS A SECURITY PATCH.",
+      "THE CAT HAD HIGHER CLEARANCE.",
+      "AT LEAST HE WOULD HAVE BROUGHT SOMETHING.",
+      "EVEN AUTOCORRECT WOULD HAVE LEFT."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "The Atlantic releases the Signal chat showing Hegseth’s detailed attack plans against the Houthis",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/hegseth-atlantic-war-plans-signal-yemen-houthis-c0addd08c627ab01a37ea63621cb695e",
+        "note": "Reports senior officials’ use of a Signal group chat discussing strikes on the Houthis to which a journalist was mistakenly added.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "ballroom-demolition",
+    "number": 21,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "HOME RENOVATIONS: EXTREME EDITION",
+    "prompt": "What part of the White House was demolished during construction of the new ballroom?",
+    "choices": [
+      "The East Wing",
+      "The Constitution",
+      "The West Wing cafeteria microwave",
+      "The Oval Office carpet, in protest"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE BEFORE PHOTO IS NOW HISTORICAL EVIDENCE.",
+      "NOT A BUILDING, ALTHOUGH IT OFTEN NEEDS REPAIRS.",
+      "THE MICROWAVE HAS SECURED A STAY OF EXECUTION.",
+      "THE CARPET HAS RETAINED ARCHITECTS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "AP photos show White House East Wing demolished",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-white-house-ballroom-57512e0d91432f75529946fddfbfe2c5",
+        "note": "Documents the demolition of the White House East Wing during Trump’s ballroom construction project.",
+        "accessedOn": "2026-10-19"
+      },
+      {
+        "kind": "official",
+        "title": "The White House Announces White House Ballroom Construction to Begin",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2025/07/the-white-house-announces-white-house-ballroom-construction-to-begin/",
+        "note": "White House announcement of ballroom construction and original announced floor area.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "hamberder-diplomacy",
+    "number": 22,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "FINE DINING AT 1600 PENNSYLVANIA",
+    "prompt": "When hosting Clemson football champions in 2019, what famously appeared on the White House menu?",
+    "choices": [
+      "Seventeen courses of molecular gastronomy",
+      "Fast-food burgers, later called hamberders in a post",
+      "Only kale smoothies",
+      "A seafood tower shaped like the electoral college"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE CHEF HAS REQUESTED A TRANSFER TO PARIS.",
+      "CORRECT. MICHELIN HAS REQUESTED A RECOUNT.",
+      "THE FOOTBALL TEAM WOULD HAVE RIOTED.",
+      "THE CRAB HAS WON PENNSYLVANIA."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "President Trump Feeds College Football National Champions “Hamberders” and Twitter Can’t Stomach It",
+        "publisher": "TIME",
+        "url": "https://time.com/5502838/trump-clemson-football/",
+        "note": "Reports fast food served to Clemson’s football team at White House and the hamberders misspelling.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "hurricane-sharpie",
+    "number": 23,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "NATIONAL WEATHER DOODLING SERVICE",
+    "prompt": "What writing instrument became notorious after a 2019 hurricane forecast map was altered?",
+    "choices": [
+      "A fountain pen made from lightning",
+      "A black Sharpie",
+      "A crayon labelled MAGA",
+      "A dry-erase marker on the ocean"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "VERY CLASSY. COMPLETELY WEATHERPROOF.",
+      "CORRECT. HURRICANES NOW ACCEPT HANDWRITTEN AMENDMENTS.",
+      "THE WEATHER SERVICE HAS EATEN THE CRAYON.",
+      "THE ATLANTIC HAS WIPED IT OFF."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump makes false claims about federal response as he campaigns in area ravaged by Helene",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/kamala-harris-donald-trump-hurricane-helene-3097f1706455929adf5a4eb67f9cdf0f",
+        "note": "Recalls Trump displaying a 2019 hurricane forecast map visibly altered with a Sharpie to indicate Alabama was at risk.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "paper-towel-olympics",
+    "number": 24,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "DISASTER RELIEF: SPORTS EDITION",
+    "prompt": "During a 2017 visit to Puerto Rico after Hurricane Maria, what did Trump toss to a crowd?",
+    "choices": [
+      "Paper-towel rolls",
+      "Gold medals for resilience",
+      "Tiny model seawalls",
+      "Signed copies of an evacuation plan"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE BOUNTY HUNTER OF KITCHEN SUPPLIES.",
+      "UNFORTUNATELY THIS IS NOT AN OLYMPIC EVENT.",
+      "THE MODELS WERE STILL BEING ENGINEERED.",
+      "THAT WOULD HAVE BEEN NICE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "AP FACT CHECK: Trump strikes false notes on Puerto Rico",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/puerto-rico-donald-trump-ap-top-news-hurricanes-storms-83ff8b8a3afa4e0cb685aaa57c173b2f",
+        "note": "Reports Trump tossing paper-towel rolls and handing out flashlights while visiting Puerto Rico after Hurricane Maria.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "disinfectant-briefing",
+    "number": 25,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "MEDICAL ADVICE: ABSOLUTELY NOT",
+    "prompt": "At an April 2020 COVID briefing, which dangerous idea did Trump publicly muse about?",
+    "choices": [
+      "Injecting or introducing disinfectant into the body",
+      "Washing your hands with soap",
+      "Asking doctors for evidence",
+      "Letting scientists finish a sentence"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT AS HISTORY; DANGEROUS AS MEDICINE. DO NOT DO THIS.",
+      "AN UNEXPECTEDLY GOOD IDEA. WRONG QUESTION.",
+      "THE SCIENTISTS WOULD LIKE TO KEEP THIS ONE.",
+      "THE MICROPHONE HAS REQUESTED ASYLUM."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "No, don’t inject disinfectant: Outcry over Trump’s musing",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/virus-outbreak-donald-trump-ap-top-news-politics-health-697d9ecef7f89cf5e9abb3b008c7faa7",
+        "note": "Reports Trump’s comments musing about disinfectant inside the body during April 2020 COVID-19 briefing; this is dangerous and is not medical advice.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "forest-rake",
+    "number": 26,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "INTERNATIONAL FIRE PREVENTION ACADEMY",
+    "prompt": "In a much-mocked 2018 comment, which household tool featured in Trump’s discussion of Finnish forest management?",
+    "choices": [
+      "A leaf blower the size of Finland",
+      "A garden rake",
+      "An industrial vacuum with skis",
+      "A solar-powered toothbrush"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THIS IS A DIFFERENT VERY EXPENSIVE PROGRAM.",
+      "CORRECT. THE FOREST IS BOOKED FOR A WEEKEND TIDY-UP.",
+      "THE VACUUM DOES NOT HAVE A VISA.",
+      "THE TREES HAVE DECLINED DENTAL COVERAGE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Finland’s president rakes memory for source of Trump remark",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/3179a22c09714899aace1c8b6265e9c5",
+        "note": "Reports Trump’s controversial suggestion about Finland, forest management and raking.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "windmill-doctor",
+    "number": 27,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE NATIONAL WINDMILL MEDICAL BOARD",
+    "prompt": "Which unsupported health claim did Trump make about noise from wind turbines?",
+    "choices": [
+      "It cures stage fright",
+      "It makes your hair orange",
+      "It causes cancer",
+      "It improves hearing underwater"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "IT MIGHT GIVE YOU STAGE FRIGHT ABOUT SCIENCE.",
+      "ORANGE HAIR IS A PERSONAL DECISION.",
+      "CORRECT ABOUT THE CLAIM. FALSE ABOUT THE SCIENCE.",
+      "THE FISH HAVE DENIED THIS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "AP FACT CHECK: Trump is tilting at wind farms again",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/25ff42c9747043b3b80e098a0f90b1d5",
+        "note": "Documents and debunks Trump’s unsupported claim about wind turbine noise causing cancer.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "space-force",
+    "number": 28,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "GALACTIC HUMAN RESOURCES",
+    "prompt": "Which U.S. military service was established through legislation Trump signed in 2019?",
+    "choices": [
+      "Space Force",
+      "Moon Navy",
+      "Interplanetary Revenue Service",
+      "The Extremely Far Away Coast Guard"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE UNIFORMS STILL HAVE TO WORK ON EARTH.",
+      "THE MOON HAS REQUESTED INDEPENDENCE.",
+      "YOUR TAXES WILL FIND YOU ANYWHERE.",
+      "THE COAST GUARD CANNOT FIND A COAST."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Donald Trump officially launches US space force",
+        "publisher": "The Guardian",
+        "url": "https://www.theguardian.com/us-news/2019/dec/21/donald-trump-officially-launches-us-space-force",
+        "note": "December 2019 reporting that Trump signed the National Defense Authorization Act establishing the U.S. Space Force.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "springfield-fact-check",
+    "number": 29,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE FACT CHECKER HAS ENTERED THE CHAT",
+    "prompt": "Which false claim did Trump repeat in the 2024 presidential debate?",
+    "choices": [
+      "That Pennsylvania is made of pencils",
+      "That immigrants in Springfield were eating residents’ pets",
+      "That voting machines run on maple syrup",
+      "That every governor is a hologram"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE PENCIL LOBBY HAS ISSUED A DENIAL.",
+      "CORRECT: HE SAID IT, BUT THE ALLEGATION WAS FALSE.",
+      "CANADA HAS DENIED INVOLVEMENT.",
+      "HOLOGRAM GOVERNORS WOULD REQUIRE LESS PARKING."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump falsely accuses immigrants in Ohio of abducting and eating pets",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/haitian-immigrants-vance-trump-ohio-6e4a47c52b23ae2c802d216369512ca5",
+        "note": "Documents and debunks Trump’s baseless 2024 debate claim about immigrants eating pets in Springfield; the allegation is false.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "golden-sneakers",
+    "number": 30,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "PRESIDENTIAL FOOTWEAR PROCUREMENT",
+    "prompt": "What did Trump promote at Sneaker Con in 2024 for $399 a pair?",
+    "choices": [
+      "Shoes carved from the Resolute Desk",
+      "Golden high-top sneakers",
+      "Presidential flip-flops with nuclear codes",
+      "Tax-deductible crocs"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE DESK HAS ASKED FOR PROTECTION.",
+      "CORRECT. FREEDOM NOW COMES IN EURO SIZES.",
+      "THE NUCLEAR FOOTWEAR PROGRAM WAS VETOED.",
+      "NOT A THING. DON’T GIVE THEM IDEAS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump hawks $399 branded shoes at ‘Sneaker Con,’ a day after a $355 million ruling against him",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/4de093eda6f8d1c68baf8fe8095f777b",
+        "note": "Reports Trump’s $399 golden branded high-top sneaker debut at Sneaker Con.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "bible-shipping-label",
+    "number": 31,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "TRADE POLICY MEETS THE GIFT SHOP",
+    "prompt": "AP traced the printing of Trump-endorsed God Bless the USA Bibles to which country?",
+    "choices": [
+      "Switzerland",
+      "China",
+      "The Vatican",
+      "A secret printing press at the border wall"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE CHOCOLATE EDITION DID NOT SHIP.",
+      "CORRECT. THE SHIPPING LABEL HAS ENTERED THE CULTURE WAR.",
+      "THE VATICAN HAS NO COMMENT ON THE BARCODE.",
+      "THE WALL HAS DECLINED THE COMMERCIAL LEASE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "AP traces the printing of Trump’s ‘God Bless America’ Bibles to the country he accuses of stealing American jobs: China",
+        "publisher": "Associated Press",
+        "url": "https://www.ap.org/news-highlights/best-of-the-week/second-winner/2024/ap-traces-the-printing-of-trumps-god-bless-america-bibles-to-the-country-he-accuses-of-stealing-american-jobs-china/",
+        "note": "AP investigation traced Trump-endorsed God Bless the USA Bibles’ manufacture to China.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "meme-coin-dinner",
+    "number": 32,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "CRYPTO DINING CLUB",
+    "prompt": "What did holders of the largest amounts of the $TRUMP meme coin get access to in May 2025?",
+    "choices": [
+      "A dinner event with the president",
+      "A guaranteed investment return",
+      "A seat on the Federal Reserve",
+      "A signed picture of a blockchain"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. RESERVATIONS ARE NOW MEASURED IN TOKENS.",
+      "NO SUCH GUARANTEE; THE FINE PRINT ATE THE MENU.",
+      "THE FED HAS DISCONNECTED THE DOORBELL.",
+      "BLOCKCHAINS ARE NOT PHOTOGENIC."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "The crypto industry saw Trump as a champion. Some now fear he’s putting personal profits first",
+        "publisher": "Associated Press",
+        "url": "https://www.ap.org/news-highlights/spotlights/2025/the-crypto-industry-saw-trump-as-a-champion-some-now-fear-hes-putting-personal-profits-first/",
+        "note": "Reports Trump’s dinner for the largest holders of the $TRUMP meme coin and ensuing ethics questions.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "un-escalator",
+    "number": 33,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "UNITED NATIONS TECH SUPPORT",
+    "prompt": "Which machine stopped during Trump’s visit to the UN in September 2025?",
+    "choices": [
+      "The office photocopier",
+      "The escalator",
+      "The global diplomacy blender",
+      "The world peace vending machine"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE PRINTER HAD ALREADY RESIGNED.",
+      "CORRECT. THE ESCALATOR HAS BEEN ACCUSED OF GLOBALISM.",
+      "THE BLENDER WAS NEVER PLUGGED IN.",
+      "OUT OF STOCK SINCE 1945."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "After mechanical challenges, UN says Trump’s team to blame for nonworking escalator and teleprompter",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-un-escalator-teleprompter-ddfc0875301f29d71625b353f2c2f832",
+        "note": "Reports 2025 UN escalation-stop incident and nonworking teleprompter; UN said a person from Trump’s entourage apparently triggered the escalator stop.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "un-teleprompter",
+    "number": 34,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "UNITED NATIONS TECH SUPPORT II",
+    "prompt": "What other piece of equipment did Trump complain about during that UN appearance?",
+    "choices": [
+      "A teleprompter",
+      "The UN’s orbital laser",
+      "A karaoke machine",
+      "The peace prize engraving robot"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. THE SPEECH HAD TO USE ITS OWN WORDS.",
+      "THE ORBITAL LASER IS STILL IN COMMITTEE.",
+      "THE DUET WAS CANCELLED.",
+      "THAT WAS AT FIFA, DIFFERENT BUILDING."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "After mechanical challenges, UN says Trump’s team to blame for nonworking escalator and teleprompter",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-un-escalator-teleprompter-ddfc0875301f29d71625b353f2c2f832",
+        "note": "Reports 2025 UN escalation-stop incident and nonworking teleprompter; UN said a person from Trump’s entourage apparently triggered the escalator stop.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "cabinet-marathon",
+    "number": 35,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "EXECUTIVE ENDURANCE TEST",
+    "prompt": "How long did a Trump Cabinet meeting in August 2025 last, according to AP?",
+    "choices": [
+      "Exactly 47 seconds",
+      "Three hours and 17 minutes",
+      "Until the Constitution expired",
+      "One full season of The Apprentice"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THAT WAS THE OPENING PRAYER.",
+      "CORRECT. THE COFFEE HAS FILED FOR OVERTIME.",
+      "IT DOESN’T WORK LIKE THAT.",
+      "THE COMMERCIAL BREAKS WERE MERCIFULLY SHORT."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Doodling, drowsiness and a misspelled nameplate mark latest Trump Cabinet meeting",
+        "publisher": "Associated Press",
+        "url": "https://apnews.com/article/trump-cabinet-doodle-misspelling-eyes-closed-84df52bbc901a001e98e325155224954",
+        "note": "Reports a Cabinet meeting lasting more than two hours, compared with an August 2025 meeting lasting three hours and 17 minutes.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "january-pardon",
+    "number": 36,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "EXECUTIVE CLEMENCY SPEEDRUN",
+    "prompt": "What did Trump issue on his first day back in office in January 2025 concerning many January 6 defendants?",
+    "choices": [
+      "A new seating chart for Congress",
+      "A pardon-and-commutation proclamation",
+      "An order replacing the Capitol dome with a golf ball",
+      "A national apology from the photocopier"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE SEATING CHART HAD ALREADY BEEN FLIPPED.",
+      "CORRECT. THE PARDON PEN WAS WORKING OVERTIME.",
+      "THE ARCHITECT REQUESTED A SECOND OPINION.",
+      "THE PHOTOCOPIER IS STILL ON PROBATION."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Granting Pardons And Commutation Of Sentences For Certain Offenses Relating To The Events At Or Near The United States Capitol On January 6, 2021",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/01/granting-pardons-and-commutation-of-sentences-for-certain-offenses-relating-to-the-events-at-or-near-the-united-states-capitol-on-january-6-2021/",
+        "note": "January 20, 2025 proclamation pardoning or commuting sentences for individuals convicted of January 6-related offenses.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "memory-five-words",
+    "number": 37,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "CERTIFIED GENIUS EXAMINATION",
+    "prompt": "Complete the five-word memory-test sequence Trump recited in a 2020 interview: Person. Woman. Man. Camera. ___?",
+    "choices": [
+      "Television",
+      "Hamberder",
+      "Subpoena",
+      "Tremendous"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. YOU ARE NOW LICENSED TO OPERATE A TELEVISION.",
+      "THE HAMBURGER IS FROM THE CATERING DEPARTMENT.",
+      "THE TEST HAS RETAINED COUNSEL.",
+      "THAT IS HOW HE DESCRIBED THE TEST."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Donald Trump Interview With Marc Siegel, Fox News, July 22, 2020",
+        "publisher": "Roll Call Factbase",
+        "url": "https://rollcall.com/factbase/trump/transcript/donald-trump-interview-marc-siegel-fox-news-july-22-2020/",
+        "note": "Transcript contains Trump’s recollection of a memory test using person, woman, man, camera, TV.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "king-post",
+    "number": 38,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "AMERICAN CONSTITUTIONAL THEATRE",
+    "prompt": "After news about New York congestion pricing in February 2025, what royal title did Trump use for himself in a social post?",
+    "choices": [
+      "Duke of Toll Booths",
+      "King",
+      "Emperor of Traffic Cones",
+      "Supreme Ruler of Parking"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE DUKE HAS AN E-ZPASS.",
+      "CORRECT. THE CONSTITUTION HAS LEFT THE GROUP CHAT.",
+      "THE CONES RESPECTFULLY DISAGREE.",
+      "THE PARKING METER DOES NOT RECOGNISE THIS TITLE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump receives widespread backlash to social post calling himself ‘king’",
+        "publisher": "The Guardian",
+        "url": "https://www.theguardian.com/us-news/2025/feb/19/trump-backlash-social-media-king",
+        "note": "Reports the February 2025 social-media post referring to Trump as king after congestion-pricing news.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "golden-statue-ai",
+    "number": 39,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "ARTIFICIAL INTELLIGENCE, NATURAL MODESTY",
+    "prompt": "A controversial AI-generated Gaza resort video shared by Trump featured what monument?",
+    "choices": [
+      "A giant golden statue of Trump",
+      "A giant public-interest audit",
+      "A monument to quiet restraint",
+      "A bronze statue of a functioning UN escalator"
+    ],
+    "correctIndex": 0,
+    "feedback": [
+      "CORRECT. EVEN THE COMPUTER GENERATED A MONUMENT TO HIS EGO.",
+      "THE RENDERING SOFTWARE REFUSED TO CREATE IT.",
+      "FILE NOT FOUND.",
+      "THE ESCALATOR IS STILL IN THERAPY."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump faces Truth Social backlash over AI video of Gaza with topless Netanyahu and bearded bellydancers",
+        "publisher": "The Guardian",
+        "url": "https://www.theguardian.com/us-news/2025/feb/26/backlash-trump-shares-ai-created-video-reimagined-gaza",
+        "note": "Reports Trump shared a computer-generated video depicting a resort-style Gaza with a giant golden statue of himself. The video is not reality.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "tariff-pause-button",
+    "number": 40,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "ECONOMIC POLICY: CTRL-Z",
+    "prompt": "In April 2025, the administration paused certain higher reciprocal tariff rates for how long?",
+    "choices": [
+      "Until lunch",
+      "90 days",
+      "For one television commercial",
+      "Exactly as long as the next tweet"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE ECONOMISTS HAVE NOT EATEN SINCE FEBRUARY.",
+      "CORRECT. THE MARKETS HAVE BEEN SENT TO THE WAITING ROOM.",
+      "YOU CANNOT NEGOTIATE WITH THE AD BREAK.",
+      "THIS MAY ALSO BE TRUE EMOTIONALLY."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "Modifying Reciprocal Tariff Rates to Reflect Trading Partner Retaliation and Alignment",
+        "publisher": "The White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/04/modifying-reciprocal-tariff-rates-to-reflect-trading-partner-retaliation-and-alignment/",
+        "note": "April 9, 2025 modification temporarily suspended certain country-specific higher rates for 90 days while maintaining a 10% rate for many trading partners.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "taco-revenge",
+    "number": 41,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "CULINARY FOREIGN POLICY II",
+    "prompt": "Pick the correct emergency snack before the tariff negotiations restart.",
+    "choices": [
+      "The Secret Service granola bar",
+      "A suspicious taco wearing a red tie",
+      "A very boring sealed biscuit",
+      "A bowl labelled FULL IMMUNITY"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "THE GRANOLA BAR HAS BEEN SUBPOENAED.",
+      "TACO TRAP! FOUR QUESTIONS BACK. THE TACO DEMANDS A RECOUNT.",
+      "CORRECT. BORING IS THE ONLY SAFE FLAVOUR.",
+      "IMMUNITY DOES NOT APPLY TO LUNCH."
+    ],
+    "sources": [
+      {
+        "kind": "original_satire",
+        "title": "The tariff-negotiation taco trap",
+        "note": "Invented food-based parody and four-question backtrack game mechanic; no factual reference."
+      }
+    ]
+  },
+  {
+    "id": "final-injunction",
+    "number": 42,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "SUPREME COURT OF OBVIOUS NONSENSE",
+    "prompt": "One question before the finale: what counts as a lawful transfer of power? (The court will change your options.)",
+    "choices": [
+      "Read the Constitution",
+      "Respect the vote",
+      "Follow the law",
+      "All of the above"
+    ],
+    "correctIndex": 3,
+    "feedback": [
+      "INJUNCTION GRANTED AGAINST THE TELEPROMPTER.",
+      "THE BALLOT BOX IS STILL A BALLOT BOX.",
+      "THE QUESTION HAS APPEALED ITS OWN APPEAL.",
+      "CORRECT. THE COURT IS SHOCKED TOO."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "The Constitution: Amendments 11-27",
+        "publisher": "National Archives",
+        "url": "https://www.archives.gov/founding-docs/amendments-11-27",
+        "note": "The Twentieth Amendment establishes the end and beginning of presidential terms at noon on January 20; all comical rewritten answers are fictional parody.",
+        "accessedOn": "2026-10-19"
+      }
+    ]
+  },
+  {
+    "id": "dum-spelling",
+    "number": 43,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "PRESIDENTIAL SPELLING BEE",
+    "prompt": "According to Trump’s theory of spelling, how would MOST people spell the word “dumb”?",
+    "choices": [
+      "DUMB — four letters, tremendous letters",
+      "DUM — the B has been fired",
+      "DUHM — the H is for huge",
+      "DUMBB — a very strong double-B mandate"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "FOUR LETTERS? YOU MUST BE FROM THE DEEP DICTIONARY.",
+      "CORRECT. THE SILENT B HAS BEEN DEPORTED.",
+      "THE H IS UNDOCUMENTED.",
+      "TWO Bs? THAT’S VOTER FRAUD."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Political Rally in Mobile, Alabama - October 2, 2026",
+        "publisher": "Roll Call Factba.se",
+        "url": "https://rollcall.com/factbase/trump/transcript/donald-trump-speech-political-rally-mobile-alabama-october-2-2026/",
+        "note": "At the 2 October 2026 rally, Trump suggested most people do not know that dumb ends in B; the question is a satirical inference about how such people would spell it.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "husted-inspection",
+    "number": 44,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE OVAL OFFICE PHYSICAL",
+    "prompt": "Trump announced: “I examined his ass. I never did that with a man before.” Whose anatomy got the presidential inspection?",
+    "choices": [
+      "Jon Gruden, the football coach",
+      "Ohio Senator Jon Husted",
+      "Mitch McConnell, by appointment",
+      "The bronze statue of Abraham Lincoln"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "WRONG JON. THE PRESIDENTIAL SCANNER HAS TWO SETTINGS.",
+      "CORRECT. THAT’S A VERY HANDS-ON ENDORSEMENT.",
+      "NO. THE TURTLE HAS IMMUNITY.",
+      "THE LINCOLN MEMORIAL HAS REQUESTED PRIVACY."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Midterm Political Rally in Northern Kentucky - October 17, 2026",
+        "publisher": "Trump Archive / Factba.se",
+        "url": "https://trump-archive.com/item/0efa1332-50cf-47a0-8bdd-8cd5e8bafb49",
+        "note": "Trump used the quoted words during a story about inspecting Ohio Senator Jon Husted, 17 October 2026.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "presidential-makeup",
+    "number": 45,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "DEPARTMENT OF FOUNDATION",
+    "prompt": "Why did Trump explain that he applies a little makeup himself?",
+    "choices": [
+      "The Secret Service banned bronzer as a chemical weapon",
+      "Without it, he said, he might look like a dead person",
+      "Tariffs made makeup artists too expensive",
+      "He must match the gold curtains in the Oval Office"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE SECRET SERVICE DENIES THE BRONZER INCIDENT.",
+      "CORRECT. NECROMANCY PREVENTION, EXECUTIVE BRANCH.",
+      "THE BEAUTY TRADE DEFICIT REMAINS UNSOLVED.",
+      "MATCHING THE CURTAINS IS ONLY A SECONDARY OBJECTIVE."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Midterm Political Rally in Dalton, Georgia - October 16, 2026",
+        "publisher": "Trump Archive / Factba.se",
+        "url": "https://trump-archive.com/item/9429da01-f6ab-4a12-9628-5b795ef8a841",
+        "note": "Trump stated he applies a little makeup himself because he would otherwise look a little like a dead person; 16 October 2026.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "ymca-gentle-wave",
+    "number": 46,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "FIRST LADY CHOREOGRAPHY",
+    "prompt": "According to Trump, how did Melania suggest he finish a rally instead of dancing to YMCA?",
+    "choices": [
+      "Do the full Village People routine, but backwards",
+      "Crowdsurf into the presidential motorcade",
+      "Leave with a dignified little wave",
+      "Introduce an executive order banning disco"
+    ],
+    "correctIndex": 2,
+    "feedback": [
+      "WRONG. THE DISCO REVERSAL IS NOT IN THE CONSTITUTION.",
+      "THE SECRET SERVICE HAS LEFT THE CHAT.",
+      "CORRECT. A GENTLE WAVE HAS BEEN DECLARED TOO SUBTLE.",
+      "DISCO HAS ALREADY APPEALED."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Midterm Political Rally in Bullhead City, Arizona - October 14, 2026",
+        "publisher": "Roll Call Factba.se",
+        "url": "https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-bullhead-city-arizona-october-14-2026/",
+        "note": "Trump described Melania urging him to leave the stage with a gentle wave rather than dance; this is his account of a private exchange.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "sophie-attendance",
+    "number": 47,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "PRESIDENTIAL TALENT SCOUT",
+    "prompt": "Trump suggested putting basketball player Sophie Cunningham on a football team. What was her proposed contribution?",
+    "choices": [
+      "Breaking the NFL single-season rushing record",
+      "Increasing attendance rather than scoring points",
+      "Running the Pentagon’s playbook",
+      "Negotiating a new tariff on basketballs"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE HALL OF FAME WILL REVIEW YOUR APPLICATION.",
+      "CORRECT. NOT POINTS — BUT THE TICKET SALES WOULD BE TREMENDOUS.",
+      "THE DEFENSE DEPARTMENT HAS A DIFFERENT SORT OF DEFENSE.",
+      "THE BASKETBALLS ARE CURRENTLY IN CUSTOMS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Midterm Political Rally in Youngstown, Ohio - October 12, 2026",
+        "publisher": "Roll Call Factba.se",
+        "url": "https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-youngstown-ohio-october-12-2026/",
+        "note": "Trump suggested having Sophie Cunningham on a football team to help attendance rather than points; 12 October 2026.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "inflation-then-now",
+    "number": 48,
+    "type": "live",
+    "enabled": true,
+    "kicker": "THE MOVING ECONOMIC SCOREBOARD",
+    "prompt": "What is the latest available U.S. annual CPI inflation rate? (It was 3.0% in January 2025.)",
+    "choices": [
+      "Exactly 0.0% — inflation has signed a resignation letter",
+      "3.7%",
+      "Automatically 3.0% — the calendar is frozen in January 2025",
+      "Negative 47% — the best number in history"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "ZERO INFLATION HAS BEEN PROMOTED TO A SLOGAN.",
+      "CORRECT FOR THE DATA DATE. PLEASE DO NOT CONFUSE INFLATION WITH THE PRICE LEVEL.",
+      "THE ECONOMY HAS NOT AGREED TO BE FROZEN.",
+      "THE NUMBER 47 IS NOT A UNIT OF MEASUREMENT."
+    ],
+    "sources": [
+      {
+        "kind": "internal",
+        "title": "Executive economic metrics game data",
+        "path": "content/executive_metrics.json",
+        "note": "Dynamic answer for metricKey inflation_yoy_pct is generated from content/executive_metrics.json at render/build time; example snapshots are not automatically refreshed. Maintain official data and as-of fields in that dataset."
+      },
+      {
+        "kind": "official",
+        "title": "Consumer Price Index News Release - September 2026",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+        "note": "CPI-U annual inflation was 3.7% in September 2026. The latest public monthly CPI release as of 22 October 2026.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "official",
+        "title": "Consumer Price Index News Release - January 2025",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/archives/cpi_02122025.htm",
+        "note": "January 2025 annual inflation was 3.0%, used as a stated month-level baseline around inauguration.",
+        "accessedOn": "2026-10-22"
+      }
+    ],
+    "metricKey": "inflation_yoy_pct"
+  },
+  {
+    "id": "chips-act-president",
+    "number": 49,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE SEMICONDUCTOR MEMORY TEST",
+    "prompt": "Which president actually signed the CHIPS and Science Act into law to boost U.S. semiconductor production?",
+    "choices": [
+      "Donald Trump — in a very big Sharpie",
+      "Joe Biden — on 9 August 2022",
+      "Ronald Reagan — using a floppy disk",
+      "The CEO of a potato-chip company"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THAT SHARPIE DOES NOT HAVE SIGNING AUTHORITY IN 2022.",
+      "CORRECT. BIDEN SIGNED IT; CONGRESS DID THE LEGISLATING.",
+      "WRONG DECADE, EXCELLENT ACCESSORY.",
+      "THOSE ARE DIFFERENT CHIPS, SIR."
+    ],
+    "sources": [
+      {
+        "kind": "official",
+        "title": "H.R.4346 - CHIPS and Science Act",
+        "publisher": "Congress.gov, Library of Congress",
+        "url": "https://www.congress.gov/bill/117th-congress/house-bill/4346/summary/74",
+        "note": "Official congressional record: introduced as H.R.4346 by Rep. Tim Ryan in July 2021 and signed into law 9 August 2022 by President Joe Biden. The bill had amendments and multiple congressional contributors.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "trump-love-language",
+    "number": 50,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE PRESIDENTIAL LOVE LANGUAGE",
+    "prompt": "Which of these has Trump expressed affection for — or enthusiastically admired — in public?",
+    "choices": [
+      "Inflation",
+      "Senator Jon Husted’s backside",
+      "Tariffs",
+      "All of the above"
+    ],
+    "correctIndex": 3,
+    "feedback": [
+      "TRUE, BUT THERE ARE TWO OTHER GREAT LOVES.",
+      "THE BACKSIDE PRAISE DIDN’T EVEN NEED A POLICY PAPER.",
+      "THE MOST BEAUTIFUL WORD IS ONLY ONE OF THEM.",
+      "CORRECT. THE LOVE TRIANGLE HAS FOUR CORNERS."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump has a new, surprising take on the higher cost of living: ‘I love the inflation’",
+        "publisher": "The Associated Press",
+        "url": "https://www.ap.org/news-highlights/elections/2026/trump-has-a-new-surprising-take-on-the-higher-cost-of-living-i-love-the-inflation/",
+        "note": "AP reports Trump said he loved inflation on 10 June 2026; this is a quote, not an endorsement of inflation.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Holds a Midterm Political Rally in Northern Kentucky - October 17, 2026",
+        "publisher": "Trump Archive / Factba.se",
+        "url": "https://trump-archive.com/item/0efa1332-50cf-47a0-8bdd-8cd5e8bafb49",
+        "note": "Trump used the quoted words during a story about inspecting Ohio Senator Jon Husted, 17 October 2026.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "reference",
+        "title": "Speech: Donald Trump Addresses Department of Defense Leaders in Quantico - September 30, 2025",
+        "publisher": "Roll Call Factba.se",
+        "url": "https://rollcall.com/factbase/trump/transcript/donald-trump-speech-department-of-defense-leaders-quantico-september-30-2025",
+        "note": "Trump said he loves tariffs and has called tariff a favourite word.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "original_satire",
+        "title": "Original composite love-list gag",
+        "note": "Trump explicitly said he loved inflation and tariffs, and spoke admiringly about Husted’s physique. The suggestion that he literally loves Husted’s backside is satirical exaggeration, not a quoted factual claim."
+      }
+    ]
+  },
+  {
+    "id": "hoarse-voice-trade",
+    "number": 51,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "THE PRESIDENTIAL VOCAL CORDS",
+    "prompt": "Why did Trump say his voice had gone rough in November 2025?",
+    "choices": [
+      "He sang the whole national anthem in French",
+      "He was shouting at people he called stupid about a trade deal",
+      "He swallowed a microphone during a press briefing",
+      "He personally argued with every country on the globe"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE FRENCH DENY THAT HE HIT THE HIGH NOTES.",
+      "CORRECT. A VOCAL-CORD TARIFF MAY FOLLOW.",
+      "THE MICROPHONE HAS ASSERTED EXECUTIVE PRIVILEGE.",
+      "ONLY ONE COUNTRY, APPARENTLY. EFFICIENCY!"
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Trump blames hoarse voice on shouting at trade negotiators",
+        "publisher": "Reuters Connect",
+        "url": "https://www.reutersconnect.com/item/trump-blames-hoarse-voice-on-shouting-at-trade-negotiators/dGFnOnJldXRlcnMuY29tLDIwMjU6bmV3c21sX1ZBMjczNTE3MTEyMDI1UlAx",
+        "note": "Reuters pool video transcription dated 17 November 2025; Trump said his voice was rough because he was shouting at people he described as stupid over trade.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "losers-audience",
+    "number": 52,
+    "type": "standard",
+    "enabled": true,
+    "kicker": "EXECUTIVE NETWORKING COURSE",
+    "prompt": "Trump said he liked hanging around what kind of people, partly because they would listen to stories of his success?",
+    "choices": [
+      "Nobel Prize winners who correct his statistics",
+      "Losers",
+      "People who insist on speaking first",
+      "Silent chess grandmasters"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE NOBEL COMMITTEE LEFT HIM ON READ.",
+      "CORRECT. FINALLY, A NETWORKING EVENT WITH THE RIGHT AUDIENCE.",
+      "THAT IS AN UNACCEPTABLE AMOUNT OF TALKING.",
+      "CHESS CLOCKS HAVE BEEN DECLARED UNFAIR."
+    ],
+    "sources": [
+      {
+        "kind": "reference",
+        "title": "Remarks and a Question-and-Answer Session at the Future Investment Initiative Priority Miami Summit in Miami Beach, Florida",
+        "publisher": "The American Presidency Project, University of California Santa Barbara",
+        "url": "https://www.presidency.ucsb.edu/documents/remarks-and-question-and-answer-session-the-future-investment-initiative-priority-miami",
+        "note": "Transcript of remarks on 27 March 2026 where Trump joked he likes to hang around losers because they make him feel better and listen to his success.",
+        "accessedOn": "2026-10-22"
+      }
+    ]
+  },
+  {
+    "id": "egg-price-since-inauguration",
+    "number": 53,
+    "type": "live",
+    "enabled": true,
+    "kicker": "THE GREAT EGG ACCOUNTABILITY TEST",
+    "prompt": "Since January 2025, how has the U.S. city-average retail price of a dozen Grade A large eggs changed, according to the latest loaded BLS data?",
+    "choices": [
+      "The chickens have invoiced the Treasury personally",
+      "Down about 54.1%",
+      "Exactly unchanged — the hens signed a price freeze",
+      "The price is classified under poultry privilege"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THOSE EGGS ARE IN THE WRONG YEAR.",
+      "CORRECT. THE EGGS ARE CHEAPER — DON’T ADJUST REALITY TO FIT THE JOKE.",
+      "THE CHICKENS DID NOT SIGN THAT AGREEMENT.",
+      "THE HENS HAVE APPEALED FOR TRANSPARENCY."
+    ],
+    "sources": [
+      {
+        "kind": "internal",
+        "title": "Executive economic metrics game data",
+        "path": "content/executive_metrics.json",
+        "note": "Dynamic answer for metricKey egg_price_change_since_jan_2025_pct is generated from content/executive_metrics.json at render/build time; example snapshots are not automatically refreshed. Maintain official data and as-of fields in that dataset."
+      },
+      {
+        "kind": "official",
+        "title": "Average price data (in U.S. dollars), selected items",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/charts/consumer-price-index/consumer-price-index-average-price-data.htm",
+        "note": "BLS average retail price of Grade A large eggs: $4.953 per dozen in January 2025 and $2.272 in September 2026; approximate change -54.1%. U.S. city average.",
+        "accessedOn": "2026-10-22"
+      }
+    ],
+    "metricKey": "egg_price_change_since_jan_2025_pct"
+  },
+  {
+    "id": "gas-price-since-inauguration",
+    "number": 54,
+    "type": "live",
+    "enabled": true,
+    "kicker": "PUMP FICTION",
+    "prompt": "Compared with inauguration week in January 2025, how has the U.S. average regular gasoline price changed, according to the latest loaded EIA data?",
+    "choices": [
+      "Petrol is now free if you own a red hat",
+      "Up about 37.8%",
+      "Exactly unchanged — the fuel pumps stopped counting",
+      "It is whatever the President last posted"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THE PETROL PUMP IS NOT IMPRESSED BY THAT SPEECH.",
+      "CORRECT. THAT IS THE EIA AVERAGE, NOT A CAMPAIGN SLOGAN.",
+      "THE PUMPS HAVE NOT AGREED TO STOP COUNTING.",
+      "THE EIA DOES NOT ACCEPT POSTS AS A UNIT OF MEASUREMENT."
+    ],
+    "sources": [
+      {
+        "kind": "internal",
+        "title": "Executive economic metrics game data",
+        "path": "content/executive_metrics.json",
+        "note": "Dynamic answer for metricKey regular_gas_price_change_since_inauguration_pct is generated from content/executive_metrics.json at render/build time; example snapshots are not automatically refreshed. Maintain official data and as-of fields in that dataset."
+      },
+      {
+        "kind": "official",
+        "title": "Gasoline and Diesel Fuel Update",
+        "publisher": "U.S. Energy Information Administration",
+        "url": "https://www.eia.gov/petroleum/gasdiesel/",
+        "note": "U.S. average regular retail gasoline price: $4.284 per gallon for the week of 19 October 2026.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "reference",
+        "title": "FactCheck.org: Trump’s Numbers, July 2026 Update",
+        "publisher": "FactCheck.org, Annenberg Public Policy Center",
+        "url": "https://www.factcheck.org/2026/07/trumps-numbers-july-2026-update/",
+        "note": "Provides the U.S. regular gasoline price of about $3.11 per gallon in the week Trump took office (20 January 2025), based on EIA data; with $4.284 in Oct 2026 this is about +37.8%.",
+        "accessedOn": "2026-10-22"
+      }
+    ],
+    "metricKey": "regular_gas_price_change_since_inauguration_pct"
+  },
+  {
+    "id": "real-worker-pay-since-inauguration",
+    "number": 55,
+    "type": "live",
+    "enabled": true,
+    "kicker": "THE PAYCHEQUE REALITY CHECK",
+    "prompt": "Since January 2025, how much has inflation-adjusted average private-sector weekly pay changed when annualised into current dollars? (A BLS worker-pay proxy, not a measure of every household.)",
+    "choices": [
+      "All paycheques have been replaced with executive orders",
+      "Up about $630 per year",
+      "Up $47,000 — one thousand dollars for each presidential number",
+      "Exactly unchanged — the economy signed a nondisclosure agreement"
+    ],
+    "correctIndex": 1,
+    "feedback": [
+      "THAT IS NOT WHAT THE BLS PAY SERIES MEASURES.",
+      "CORRECT FOR THIS DEFINED MEASURE. HOUSEHOLDS MAY HAVE VERY DIFFERENT EXPERIENCES.",
+      "THAT IS NOT HOW ORDINAL PRESIDENTIAL NUMBERS WORK.",
+      "THE BLS DOES NOT ACCEPT NONDISCLOSURE AGREEMENTS FROM ARITHMETIC."
+    ],
+    "sources": [
+      {
+        "kind": "internal",
+        "title": "Executive economic metrics game data",
+        "path": "content/executive_metrics.json",
+        "note": "Dynamic answer for metricKey real_average_worker_annual_change_usd is generated from content/executive_metrics.json at render/build time; example snapshots are not automatically refreshed. Maintain official data and as-of fields in that dataset."
+      },
+      {
+        "kind": "official",
+        "title": "Real Earnings News Release - January 2026",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/archives/realer_02132026.htm",
+        "note": "January 2025 revised real average weekly earnings for private nonfarm payroll employees were $383.16 in 1982-84 purchasing-power dollars, seasonally adjusted.",
+        "accessedOn": "2026-10-22"
+      },
+      {
+        "kind": "official",
+        "title": "Real Earnings News Release - September 2026",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/archives/realer_10142026.htm",
+        "note": "September 2026 real average weekly earnings for private nonfarm payroll employees $386.76; CPI 336.298 (1982-84=100). Calculation ($386.76-$383.16)*52*(336.298/100) ≈ $630/year, expressed in Sep-2026 purchasing-power dollars. This worker-specific proxy is not a representative change for every American.",
+        "accessedOn": "2026-10-22"
+      }
+    ],
+    "metricKey": "real_average_worker_annual_change_usd"
   }
 ]
-

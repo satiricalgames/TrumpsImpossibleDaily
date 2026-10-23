@@ -1123,3 +1123,19 @@ button:focus-visible { outline: 5px solid var(--gold); outline-offset: 4px; }
 .weekly-responses-card textarea { width: 100%; padding: 12px; color: #101a2f; background: white; border: 2px solid #73809a; font: 13px/1.5 Arial, sans-serif; }
 @media (max-width: 900px) { .weekly-editor-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .weekly-days, .target-inputs { grid-template-columns: 1fr; } }
+
+/* Daily question-bank and scheduling improvements ----------------------- */
+.daily-bank-summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.daily-bank-summary strong { padding: 9px 12px; color: var(--ink); background: #ffe36e; border: 2px solid var(--ink); font: 900 11px Arial, sans-serif; letter-spacing: .04em; }
+.daily-answer-editor { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; background: #f7f3df; border: 2px solid #c9c3aa; }
+.editor-danger { color: white !important; background: #a20e25 !important; border-color: #680817 !important; }
+.schedule-errors { margin: 0 0 18px; }
+.friendly-schedule { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.schedule-day { padding: 14px; background: #f7f3df; border: 3px solid var(--ink); }
+.schedule-day h3 { margin: 0 0 10px; color: var(--red); font: 900 18px Arial, sans-serif; }
+.schedule-day .editor-field { margin-bottom: 9px; }
+.schedule-day select { font-size: 12px; }
+
+@media (max-width: 700px) {
+  .daily-answer-editor, .friendly-schedule { grid-template-columns: 1fr; }
+}

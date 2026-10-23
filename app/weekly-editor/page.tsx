@@ -1,5 +1,7 @@
 'use client';
 
+export { default } from './WeeklyScheduleManager';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import questionsJson from '../../content/questions.json';
 import builtIn from '../../content/weekly_game.json';
@@ -18,7 +20,7 @@ function seededOrder<T>(items: T[], seed: number): T[] {
   });
 }
 
-export default function WeeklyEditor() {
+function LegacyWeeklyEditor() {
   const [draft, setDraft] = useState<WeeklyFile>(clone);
   const [previewUrl, setPreviewUrl] = useState(publicPath(builtIn.image));
   const [status, setStatus] = useState('Loaded the built-in weekly investigation.');
@@ -107,3 +109,5 @@ export default function WeeklyEditor() {
     </section>
   </main>;
 }
+
+void LegacyWeeklyEditor;

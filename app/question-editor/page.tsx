@@ -1,5 +1,7 @@
 'use client';
 
+export { default } from './DailyQuestionManager';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import questionsData from '@/content/questions.json';
 import executiveMetricsData from '@/content/executive_metrics.json';
@@ -185,7 +187,7 @@ function LinesField({ label, value, onChange, hint }: { label: string; value?: s
   return <label className="editor-field editor-span"><span>{label}</span>{hint && <small>{hint}</small>}<textarea rows={5} value={(value ?? []).join('\n')} onChange={(event) => onChange(event.target.value.split('\n'))} /></label>;
 }
 
-export default function QuestionEditor() {
+function LegacyQuestionEditor() {
   const builtIn = questionsData as Question[];
   const [questions, setQuestions] = useState<Question[]>(() => builtIn.map(cloneQuestion));
   const [mode, setMode] = useState<'add' | 'edit'>('edit');
@@ -474,3 +476,5 @@ export default function QuestionEditor() {
     </main>
   );
 }
+
+void LegacyQuestionEditor;
